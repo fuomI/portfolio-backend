@@ -82,6 +82,7 @@ Frontend shall be done after the backend is ready.
 ### Spring Boot
 - **Spring Security** - Login functionality and authentication
 - **Spring Web** - For building webapp
+- **Spring Boot starter test** - JUnit, Mockito etc. for writing  tests
 - **Spring Data JPA** - Easy database interactions
 - **H2** - Memory database for development purposes
 - **Spring Boot Rest** - REST API
@@ -106,4 +107,6 @@ These are the project tasks, classes and features that I came up when planning t
 ![tasks_2](documentation_images/tasks_2.png)
 
 ![tasks_3](documentation_images/tasks_3.png)
+
+
 
