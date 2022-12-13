@@ -94,3 +94,16 @@ Frontend shall be done after the backend is ready.
 ## Dataflow
 
 ![dataflow](documentation_images/dataflow.jpg)
+
+## General project & coding -tasks
+
+These are the project tasks, classes and features that I came up when planning this project. 
+
+### Trello
+
+![tasks_1](documentation_images/tasks_1.png)
+
+![tasks_2](documentation_images/tasks_2.png)
+
+![tasks_3](documentation_images/tasks_3.png)
+
