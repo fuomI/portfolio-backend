@@ -25,3 +25,44 @@ The project has five different kinds of branches:
   - Changes that are not planned but must be done are handled in hot_fix branches.
   - Merging to development when hot_fix is done.
 
+## Requirements
+
+- Login page for admin
+  - If login successful &rarr; Land to Welcome -page
+  - If not &rarr; Message: "Invalid credentials"
+
+- Admin can logout
+  - Admin redirected to frontend
+
+- All relevant information stored about Projects
+  - id (int), Primary key, required
+  - username (String), required
+  - projectName (String), required
+  - projectType (String), required
+  - sourceCodeURL (String)
+  - projectURL (String)
+  - monthOfCompletion (LocalDate), required
+  - projectImageFilename (String)
+  
+- Admin can interact with project database (MySQL) using graphical UI 
+  - Create project
+    - id is set automatically
+    - Project image can be uploaded, projectImageFilename set in process
+    - All the rest Project fields can be set
+  - Read project
+    - Projects -page listing all projects
+  - Update project
+    - Update by id
+    - New project image can be uploaded, projectImageFilename set in process
+    - All the rest Project fields can be updated
+  - Delete project
+    - Delete by id
+
+- Frontend can access Projects data
+  - Internal REST API 
+    - /rest/get/projects -route returns all projects in JSON
+
+
+
+
+
