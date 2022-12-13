@@ -91,3 +91,6 @@ Frontend shall be done after the backend is ready.
 - **JSTL** - JSP Standard Tag Library for working with JSPs
 
 
+## Dataflow
+
+![dataflow](documentation_images/dataflow.jpg)
