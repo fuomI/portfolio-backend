@@ -109,4 +109,11 @@ These are the project tasks, classes and features that I came up when planning t
 ![tasks_3](documentation_images/tasks_3.png)
 
 
+## Exit criteria for coding tasks
+
+- Task must reach its goal before testing
+- If applicable, unit tests must be done for all methods linked to the task
+- Also Negative scenarios must be tested if applicable
+- All tests must pass
+- Code must be refactored
 
