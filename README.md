@@ -117,3 +117,9 @@ These are the project tasks, classes and features that I came up when planning t
 - All tests must pass
 - Code must be refactored
 
+
+## Project timetable
+
+![project_timetable](documentation_images/project_timetable.png)
+
+
