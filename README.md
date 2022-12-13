@@ -77,6 +77,17 @@ Frontend shall be done after the backend is ready.
   - **/rest/get/projects** -route returns all projects in JSON
 
 
+## Technologies
 
+### Spring Boot
+- **Spring Security** - Login functionality and authentication
+- **Spring Web** - For building webapp
+- **Spring Data JPA** - Easy database interactions
+- **H2** - Memory database for development purposes
+- **Spring Boot Rest** - REST API
+- **MySQL drivers** - Production database
+- **Bootstrap** - CSS Framework for styling
+- **jQuery** - JavaScript library for functionalities like calendar picker
+- **JSTL** - JSP Standard Tag Library for working with JSPs
 
 
