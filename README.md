@@ -33,40 +33,43 @@ Frontend shall be done after the backend is ready.
 
 ## Requirements
 
-- Login page for admin
+- **Login page for admin**
   - If login successful &rarr; Land to Welcome -page
   - If not &rarr; Message: "Invalid credentials"
 
-- Admin can logout
+
+- **Admin can logout**
   - Admin redirected to frontend
 
-- All relevant information stored about Projects
-  - id (int), Primary key, required
-  - username (String), required
-  - projectName (String), required
-  - projectType (String), required
-  - sourceCodeURL (String)
-  - projectURL (String)
-  - monthOfCompletion (LocalDate), required
-  - projectImageFilename (String)
-  
-- Admin can interact with project database (MySQL) using graphical UI 
-  - Create project
+
+- **All relevant information stored about Projects**
+  - **id** (int), Primary key, required
+  - **username** (String), required
+  - **projectName** (String), required
+  - **projectType** (String), required
+  - **sourceCodeURL** (String)
+  - **projectURL** (String)
+  - **monthOfCompletion** (LocalDate), required
+  - **projectImageFilename** (String)
+
+
+- **Admin can interact with project database (MySQL) using graphical UI** 
+  - **Create project**
     - id is set automatically
     - Project image can be uploaded, projectImageFilename set in process
     - All the rest Project fields can be set
-  - Read project
+  - **Read project**
     - Projects -page listing all projects
-  - Update project
+  - **Update project**
     - Update by id
     - New project image can be uploaded, projectImageFilename set in process
     - All the rest Project fields can be updated
-  - Delete project
+  - **Delete project**
     - Delete by id
 
-- Frontend can access Projects data
-  - Internal REST API 
-    - /rest/get/projects -route returns all projects in JSON
+
+- **Frontend can access Projects data via Internal REST API**
+  - **/rest/get/projects** -route returns all projects in JSON
 
 
 
