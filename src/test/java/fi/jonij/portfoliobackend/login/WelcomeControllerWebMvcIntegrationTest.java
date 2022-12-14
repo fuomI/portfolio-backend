@@ -32,6 +32,15 @@ class WelcomeControllerWebMvcIntegrationTest {
         assertEquals(200,mvcResult.getResponse().getStatus());
     }
 
+    // Without MockUser "tester" we should get status code 401 (Unauthorized)
+    @Test
+    public void requestToDefaultRoute_invalidUserScenario() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(DEFAULT_URL)
+                .accept(MediaType.APPLICATION_FORM_URLENCODED_VALUE);
 
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        assertEquals(401,mvcResult.getResponse().getStatus());
+    }
 
 }
