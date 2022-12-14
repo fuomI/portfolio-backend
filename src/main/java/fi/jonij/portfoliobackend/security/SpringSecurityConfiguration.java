@@ -2,6 +2,7 @@ package fi.jonij.portfoliobackend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -67,6 +68,8 @@ public class SpringSecurityConfiguration {
         http.csrf().disable();
         http.headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
+        http.passwordManagement(Customizer.withDefaults());
 
         return http.build();
     }
