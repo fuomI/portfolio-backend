@@ -23,7 +23,7 @@ mvnw.cmd
 ### application.properties ###
 src/main/resources/application.properties
 
-### secret ###
-src/main/java/fi/jonij/portfoliobackend/internal/
+### other ###
+src/main/java/fi/jonij/portfoliobackend/security/Credentials.java
 
 
