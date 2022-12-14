@@ -1,9 +1,7 @@
 package fi.jonij.portfoliobackend.security;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +19,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SpringSecurityConfiguration {
 
-    private Credentials credentials = new Credentials();
+    private final Credentials credentials = new Credentials();
 
     // Iterates through credentialsMap and adds new users based on credentials
     @Bean
@@ -43,14 +41,12 @@ public class SpringSecurityConfiguration {
         Function<String, String> passwordEncoder =
                 input -> passwordEncoder().encode(input);
 
-        UserDetails userDetails = User.builder()
+        return User.builder()
                 .passwordEncoder(passwordEncoder)
                 .username(username)
                 .password(password)
                 .roles("USER", "ADMIN")
                 .build();
-
-        return userDetails;
     }
 
     // Method for creating bcrypt password encoder with default strength 10
