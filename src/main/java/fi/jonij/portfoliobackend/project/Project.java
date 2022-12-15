@@ -39,16 +39,16 @@ public class Project {
     }
 
     public Project(int id, String username, String projectName, String projectType,
-                   LocalDate dateOfCompletion, boolean isDeployed, String sourceCodeURL,
-                   String projectURL, String projectImageFilename) {
+                   LocalDate dateOfCompletion, boolean isDeployed, String sourceCodeUrl,
+                   String projectUrl, String projectImageFilename) {
         this.id = id;
         this.username = username;
         this.projectName = projectName;
         this.projectType = projectType;
         this.dateOfCompletion = dateOfCompletion;
         this.isDeployed = isDeployed;
-        this.sourceCodeURL = sourceCodeURL;
-        this.projectURL = projectURL;
+        this.sourceCodeUrl = sourceCodeUrl;
+        this.projectUrl = projectUrl;
         this.projectImageFilename = projectImageFilename;
     }
 
@@ -100,20 +100,20 @@ public class Project {
         isDeployed = deployed;
     }
 
-    public String getSourceCodeURL() {
-        return sourceCodeURL;
+    public String getSourceCodeUrl() {
+        return sourceCodeUrl;
     }
 
-    public void setSourceCodeURL(String sourceCodeURL) {
-        this.sourceCodeURL = sourceCodeURL;
+    public void setSourceCodeUrl(String sourceCodeURL) {
+        this.sourceCodeUrl = sourceCodeURL;
     }
 
-    public String getProjectURL() {
-        return projectURL;
+    public String getProjectUrl() {
+        return projectUrl;
     }
 
-    public void setProjectURL(String projectURL) {
-        this.projectURL = projectURL;
+    public void setProjectUrl(String projectURL) {
+        this.projectUrl = projectURL;
     }
 
     public String getProjectImageFilename() {
@@ -133,8 +133,8 @@ public class Project {
                 ", projectType='" + projectType + '\'' +
                 ", dateOfCompletion=" + dateOfCompletion +
                 ", isDeployed=" + isDeployed +
-                ", sourceCodeURL='" + sourceCodeURL + '\'' +
-                ", projectURL='" + projectURL + '\'' +
+                ", sourceCodeURL='" + sourceCodeUrl + '\'' +
+                ", projectURL='" + projectUrl + '\'' +
                 ", projectImageFilename='" + projectImageFilename + '\'' +
                 '}';
     }
