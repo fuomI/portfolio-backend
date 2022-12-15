@@ -46,5 +46,4 @@ class ProjectRepositoryIntegrationTest {
 
         assertTrue(projectRepository.findByUsername("user").isEmpty());
     }
-    
 }
