@@ -12,7 +12,7 @@ public class Project {
 
     @Id
     @GeneratedValue
-    @NotEmpty
+    @NotNull
     private int id;
     @NotEmpty
     private String username;
@@ -23,16 +23,12 @@ public class Project {
     @Size(min=2, message="Enter at least 2 characters")
     @Pattern(regexp="^[a-zA-z]+$", message="Enter only letters")
     private String projectType;
-    @NotEmpty
-    @Past
+    @NotNull
     private LocalDate dateOfCompletion;
     @NotNull
     private boolean isDeployed;
-    @Pattern(regexp="((http|https)://)?")
     private String sourceCodeUrl;
-    @Pattern(regexp="((http|https)://)?")
     private String projectUrl;
-    @Pattern(regexp="(.jpg|.jpeg|.png)$")
     private String projectImageFilename;
 
     public Project() {
