@@ -29,9 +29,9 @@ public class Project {
     @NotNull
     private boolean isDeployed;
     @Pattern(regexp="((http|https)://)?")
-    private String sourceCodeURL;
+    private String sourceCodeUrl;
     @Pattern(regexp="((http|https)://)?")
-    private String projectURL;
+    private String projectUrl;
     @Pattern(regexp="(.jpg|.jpeg|.png)$")
     private String projectImageFilename;
 
