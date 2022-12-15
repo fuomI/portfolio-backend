@@ -52,9 +52,9 @@ Frontend shall be done after the backend is ready.
   - **username** (String), required
   - **projectName** (String), required
   - **projectType** (String), required
+  - **dateOfCompletion** (LocalDate), required
   - **sourceCodeURL** (String)
   - **projectURL** (String)
-  - **monthOfCompletion** (LocalDate), required
   - **projectImageFilename** (String)
 
 
