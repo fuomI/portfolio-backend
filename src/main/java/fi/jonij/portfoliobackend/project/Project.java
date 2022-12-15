@@ -35,4 +35,8 @@ public class Project {
     @Pattern(regexp="(.jpg|.jpeg|.png)$")
     private String projectImageFilename;
 
+    public Project() {
+    }
+
+    
 }
