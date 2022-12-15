@@ -19,6 +19,10 @@ class ProjectRepositoryIntegrationTest {
             true, "http://github.com", "https://railway.app/project",
             "testproject.jpg");
 
+    Project testProject2 = new Project("tester", "testProject",
+            "Coding", LocalDate.now(), true, "http://github.com",
+            "https://railway.app/project", "testproject.jpg");
+
     @BeforeEach
     public void saveProjectToProjectRepository () {
         projectRepository.save(testProject);
@@ -33,11 +37,7 @@ class ProjectRepositoryIntegrationTest {
 
     @Test
     public void findSavedProjectByUsername_negativeScenario() {
-        Project projectWithDifferentUsername = new Project("tester", "testProject",
-                "Coding", LocalDate.now(), true, "http://github.com",
-                "https://railway.app/project", "testproject.jpg");
-
-        assertNotEquals(projectWithDifferentUsername, projectRepository.findByUsername("user").get(0));
+        assertNotEquals(testProject2, projectRepository.findByUsername("user").get(0));
     }
 
     @Test
@@ -46,5 +46,5 @@ class ProjectRepositoryIntegrationTest {
 
         assertTrue(projectRepository.findByUsername("user").isEmpty());
     }
-
+    
 }
