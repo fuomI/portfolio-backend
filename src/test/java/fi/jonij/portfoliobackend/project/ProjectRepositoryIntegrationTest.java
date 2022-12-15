@@ -39,6 +39,12 @@ class ProjectRepositoryIntegrationTest {
 
         assertNotEquals(projectWithDifferentUsername, projectRepository.findByUsername("user").get(0));
     }
-    
+
+    @Test
+    public void deleteProjectFromProjectRepository_basicScenario() {
+        projectRepository.delete(testProject);
+
+        assertTrue(projectRepository.findByUsername("user").isEmpty());
+    }
 
 }
