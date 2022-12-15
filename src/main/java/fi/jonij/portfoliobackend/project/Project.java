@@ -38,5 +38,19 @@ public class Project {
     public Project() {
     }
 
+    public Project(int id, String username, String projectName, String projectType,
+                   LocalDate dateOfCompletion, boolean isDeployed, String sourceCodeURL,
+                   String projectURL, String projectImageFilename) {
+        this.id = id;
+        this.username = username;
+        this.projectName = projectName;
+        this.projectType = projectType;
+        this.dateOfCompletion = dateOfCompletion;
+        this.isDeployed = isDeployed;
+        this.sourceCodeURL = sourceCodeURL;
+        this.projectURL = projectURL;
+        this.projectImageFilename = projectImageFilename;
+    }
+
     
 }
