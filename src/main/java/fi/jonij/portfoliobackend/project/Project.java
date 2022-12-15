@@ -123,4 +123,19 @@ public class Project {
     public void setProjectImageFilename(String projectImageFilename) {
         this.projectImageFilename = projectImageFilename;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", projectType='" + projectType + '\'' +
+                ", dateOfCompletion=" + dateOfCompletion +
+                ", isDeployed=" + isDeployed +
+                ", sourceCodeURL='" + sourceCodeURL + '\'' +
+                ", projectURL='" + projectURL + '\'' +
+                ", projectImageFilename='" + projectImageFilename + '\'' +
+                '}';
+    }
 }
