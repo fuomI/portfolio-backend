@@ -34,10 +34,9 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, String username, String projectName, String projectType,
+    public Project(String username, String projectName, String projectType,
                    LocalDate dateOfCompletion, boolean isDeployed, String sourceCodeUrl,
                    String projectUrl, String projectImageFilename) {
-        this.id = id;
         this.username = username;
         this.projectName = projectName;
         this.projectType = projectType;
