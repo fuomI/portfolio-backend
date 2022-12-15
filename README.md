@@ -22,16 +22,16 @@ Frontend shall be done after the backend is ready.
   - When development is ready, it is then merged to the release branch.
   
   
-- **project_task#3, #4, #5...**
+- **project_task_3, 4, 5...**
   - When project_task is complete, it is then merged to the development branch.
   
   
-- **coding_task#0, #1, #2...**
+- **coding_task_1, 2, 3...**
   - When coding_task passes the exit criteria, it is then merged to the development branch.
   - Exit criteria is explained later in the documentation.
   
   
-- **hot_fix#1, #2, #3...**
+- **hotfix_1, 2, 3...**
   - Changes that are not planned but must be done are handled in hot_fix branches.
   - Merging to development when hot_fix is done.
   
