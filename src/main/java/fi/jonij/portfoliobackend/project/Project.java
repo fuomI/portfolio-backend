@@ -52,5 +52,75 @@ public class Project {
         this.projectImageFilename = projectImageFilename;
     }
 
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    public LocalDate getDateOfCompletion() {
+        return dateOfCompletion;
+    }
+
+    public void setDateOfCompletion(LocalDate dateOfCompletion) {
+        this.dateOfCompletion = dateOfCompletion;
+    }
+
+    public boolean isDeployed() {
+        return isDeployed;
+    }
+
+    public void setDeployed(boolean deployed) {
+        isDeployed = deployed;
+    }
+
+    public String getSourceCodeURL() {
+        return sourceCodeURL;
+    }
+
+    public void setSourceCodeURL(String sourceCodeURL) {
+        this.sourceCodeURL = sourceCodeURL;
+    }
+
+    public String getProjectURL() {
+        return projectURL;
+    }
+
+    public void setProjectURL(String projectURL) {
+        this.projectURL = projectURL;
+    }
+
+    public String getProjectImageFilename() {
+        return projectImageFilename;
+    }
+
+    public void setProjectImageFilename(String projectImageFilename) {
+        this.projectImageFilename = projectImageFilename;
+    }
 }
