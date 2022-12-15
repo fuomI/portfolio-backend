@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class ProjectRepositoryIntegrationTest {
@@ -30,5 +30,15 @@ class ProjectRepositoryIntegrationTest {
 
         assertEquals(expected, projectRepository.findByUsername("user").get(0));
     }
+
+    @Test
+    public void findSavedProjectByUsername_negativeScenario() {
+        Project projectWithDifferentUsername = new Project("tester", "testProject",
+                "Coding", LocalDate.now(), true, "http://github.com",
+                "https://railway.app/project", "testproject.jpg");
+
+        assertNotEquals(projectWithDifferentUsername, projectRepository.findByUsername("user").get(0));
+    }
+    
 
 }
