@@ -21,8 +21,7 @@
             <tbody>
             <c:forEach items="${projects}" var="project">
                 <tr>
-                    <td><img src="default.png" class="img-fluid" alt="Default project image" width="132"
-                             height="100"></td>
+                    <td><img src="${project.projectImageFilename}" class="img-fluid" alt="Default project image" width="132" height="100"></td>
                     <td>${project.projectName}</td>
                     <td>${project.projectType}</td>
                     <td>${project.dateOfCompletion}</td>
