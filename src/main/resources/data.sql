@@ -4,7 +4,7 @@ INSERT INTO PROJECT
 VALUES
     (1001, 'tester', 'test project one', 'Coding', CURRENT_DATE(),
      true, 'http://www.github.com/testproj1', 'http://railway.app/testproj1',
-     'testproj1.jpg');
+     'default.png');
 
 INSERT INTO PROJECT
 (ID, USERNAME, PROJECT_NAME, PROJECT_TYPE, DATE_OF_COMPLETION,
