@@ -2,11 +2,12 @@
 <title>Welcome</title>
 </head>
 
-    <body>
+<body>
 
-    <h1>Welcome ${name}</h1>
-    <br>
-    <br>
-    <a href="/logout">Log out</a>
+    <div class="container">
+        <h1>Welcome ${name}</h1>
+        <br>
+        <a href="/logout">Log out</a>
+    </div>
 
 <%@ include file="common/footer.jspf" %>
