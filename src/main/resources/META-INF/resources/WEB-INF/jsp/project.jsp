@@ -30,12 +30,6 @@
             </fieldset>
 
             <fieldset class="mb-3">
-                <form:label for="deployedInput" path="deployed" cssClass="formlabel">Deployed</form:label>
-                <form:input id="deployedInput" type="text" path="deployed" cssClass="form-control" required="required"/>
-                <form:errors path="deployed" cssClass="text-warning"/>
-            </fieldset>
-
-            <fieldset class="mb-3">
                 <form:label for="sourceCodeInput" path="sourceCodeUrl" cssClass="form-label">Source Code URL</form:label>
                 <form:input id="sourceCodeInput" type="text" path="sourceCodeUrl" cssClass="form-control"/>
                 <form:errors path="sourceCodeUrl" cssClass="text-warning"/>

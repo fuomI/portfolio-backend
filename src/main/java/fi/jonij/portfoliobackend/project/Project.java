@@ -27,8 +27,6 @@ public class Project {
     private String projectType;
     @NotNull
     private LocalDate dateOfCompletion;
-    @NotNull
-    private boolean deployed;
     @Pattern(regexp="^((http)|(https))[:][\\/][\\/]+$", message="Enter valid url starting with: http:// or https://")
     private String sourceCodeUrl;
     @Pattern(regexp="^((http)|(https))[:][\\/][\\/]+$", message="Enter valid url starting with: http:// or https://")
@@ -39,13 +37,12 @@ public class Project {
     }
 
     public Project(String username, String projectName, String projectType,
-                   LocalDate dateOfCompletion, boolean deployed, String sourceCodeUrl,
+                   LocalDate dateOfCompletion, String sourceCodeUrl,
                    String projectUrl, String projectImageFilename) {
         this.username = username;
         this.projectName = projectName;
         this.projectType = projectType;
         this.dateOfCompletion = dateOfCompletion;
-        this.deployed = deployed;
         this.sourceCodeUrl = sourceCodeUrl;
         this.projectUrl = projectUrl;
         this.projectImageFilename = projectImageFilename;
@@ -91,14 +88,6 @@ public class Project {
         this.dateOfCompletion = dateOfCompletion;
     }
 
-    public boolean isDeployed() {
-        return deployed;
-    }
-
-    public void setDeployed(boolean deployed) {
-        this.deployed = deployed;
-    }
-
     public String getSourceCodeUrl() {
         return sourceCodeUrl;
     }
@@ -131,7 +120,6 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectType='" + projectType + '\'' +
                 ", dateOfCompletion=" + dateOfCompletion +
-                ", isDeployed=" + deployed +
                 ", sourceCodeURL='" + sourceCodeUrl + '\'' +
                 ", projectURL='" + projectUrl + '\'' +
                 ", projectImageFilename='" + projectImageFilename + '\'' +

@@ -15,7 +15,6 @@
                     <td><b>Name:</b> ${project.projectName}<br>
                         <b>Type:</b> ${project.projectType}<br>
                         <b>Completed:</b> ${project.dateOfCompletion}<br>
-                        <b>Deployed:</b> ${project.deployed}<br>
                         <b>Source code:</b> <a>${project.sourceCodeUrl}</a><br>
                         <b> Hosted at:</b> <a>${project.projectUrl}</a></td>
                 </tr>
