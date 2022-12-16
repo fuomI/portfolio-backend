@@ -26,7 +26,7 @@ public class Project {
     @NotNull
     private LocalDate dateOfCompletion;
     @NotNull
-    private boolean isDeployed;
+    private boolean deployed;
     private String sourceCodeUrl;
     private String projectUrl;
     private String projectImageFilename;
@@ -35,13 +35,13 @@ public class Project {
     }
 
     public Project(String username, String projectName, String projectType,
-                   LocalDate dateOfCompletion, boolean isDeployed, String sourceCodeUrl,
+                   LocalDate dateOfCompletion, boolean deployed, String sourceCodeUrl,
                    String projectUrl, String projectImageFilename) {
         this.username = username;
         this.projectName = projectName;
         this.projectType = projectType;
         this.dateOfCompletion = dateOfCompletion;
-        this.isDeployed = isDeployed;
+        this.deployed = deployed;
         this.sourceCodeUrl = sourceCodeUrl;
         this.projectUrl = projectUrl;
         this.projectImageFilename = projectImageFilename;
@@ -88,11 +88,11 @@ public class Project {
     }
 
     public boolean isDeployed() {
-        return isDeployed;
+        return deployed;
     }
 
     public void setDeployed(boolean deployed) {
-        isDeployed = deployed;
+        this.deployed = deployed;
     }
 
     public String getSourceCodeUrl() {
@@ -127,7 +127,7 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectType='" + projectType + '\'' +
                 ", dateOfCompletion=" + dateOfCompletion +
-                ", isDeployed=" + isDeployed +
+                ", isDeployed=" + deployed +
                 ", sourceCodeURL='" + sourceCodeUrl + '\'' +
                 ", projectURL='" + projectUrl + '\'' +
                 ", projectImageFilename='" + projectImageFilename + '\'' +
