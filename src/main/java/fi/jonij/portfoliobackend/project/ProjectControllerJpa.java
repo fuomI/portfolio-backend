@@ -37,7 +37,7 @@ public class ProjectControllerJpa {
     @RequestMapping(value="add-project", method = RequestMethod.GET)
     public String showNewProjectPage(ModelMap model) {
         String username = getLoggedInUserName();
-        Project project = new Project(username, "", "", LocalDate.now(),
+        Project project = new Project(username, "", "","", LocalDate.now(),
                 "", "", "" );
         model.addAttribute("project", project);
 
