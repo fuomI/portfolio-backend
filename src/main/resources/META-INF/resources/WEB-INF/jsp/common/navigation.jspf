@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
+<nav class="navbar navbar-expand navbar-light bg-light mb-3 p-1">
     <a class="navbar-brand m-1" href="#">jonij.fi</a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
