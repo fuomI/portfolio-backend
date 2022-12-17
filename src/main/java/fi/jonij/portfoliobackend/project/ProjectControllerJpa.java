@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
@@ -55,6 +56,14 @@ public class ProjectControllerJpa {
         newProject.setUsername(username);
         newProject.setProjectImageFilename("default.png"); // Temporary hard code, until file upload implemented
         projectRepository.save(newProject);
+
+        return "redirect:list-projects";
+    }
+
+    // Route for deleting a project by id
+    @RequestMapping("delete-project")
+    public String deleteTodo(@RequestParam int id) {
+        projectRepository.deleteById(id);
 
         return "redirect:list-projects";
     }
