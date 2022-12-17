@@ -18,6 +18,9 @@
                         <b>Source code:</b> <a>${project.sourceCodeUrl}</a><br>
                         <b>Hosted at:</b> <a>${project.projectUrl}</a></td>
                 </tr>
+                <tr>
+                    <td><a href="delete-project?id=${project.id}" class="btn btn-warning" style="background-color: #f87c7c">Delete</a></td>
+                </tr>
             </c:forEach>
             </tbody>
         </table>
