@@ -11,16 +11,22 @@
         <%--@elvariable id="project" type="fi.jonij.portfoliobackend.project.Project"--%>
         <form:form method="post" modelAttribute="project">
 
-            <div class="mb-3">
+            <fieldset class="mb-3">
                 <form:label for="nameInput" path="projectName" cssClass="form-label">Name</form:label>
                 <form:input id="nameInput" type="text" path="projectName" cssClass="form-control" required="required"/>
                 <form:errors path="projectName" cssClass="text-warning"/>
-            </div>
+            </fieldset>
 
             <fieldset class="mb-3">
                 <form:label for="typeInput" path="projectType" cssClass="form-label">Type</form:label>
                 <form:input id="typeInput" type="text" path="projectType" cssClass="form-control" required="required"/>
                 <form:errors path="projectType" cssClass="text-warning"/>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <form:label for="typeInput" path="projectDescription" cssClass="form-label">Description</form:label>
+                <form:input id="typeInput" type="text" path="projectDescription" cssClass="form-control" required="required"/>
+                <form:errors path="projectDescription" cssClass="text-warning"/>
             </fieldset>
 
             <fieldset class="mb-3">
