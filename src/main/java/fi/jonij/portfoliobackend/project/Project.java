@@ -21,18 +21,16 @@ public class Project {
     private String projectName;
     @Size(min=2, message="Enter at least 2 characters")
     @Size(max=15, message="Maximum allowed characters is 15")
-    @Pattern(regexp="^[a-zA-z]+$", message="Enter only letters")
     private String projectType;
     @NotNull
     private LocalDate dateOfCompletion;
-    @Pattern(regexp="^((http)|(https))[:][\\/][\\/]+$", message="Enter valid url starting with: http:// or https://")
+    @Pattern(regexp="^((http)|(https))[:][\\/][\\/].*", message="Enter valid url starting with: http:// or https://")
     private String sourceCodeUrl;
-    @Pattern(regexp="^((http)|(https))[:][\\/][\\/]+$", message="Enter valid url starting with: http:// or https://")
+    @Pattern(regexp="^((http)|(https))[:][\\/][\\/].*", message="Enter valid url starting with: http:// or https://")
     private String projectUrl;
     private String projectImageFilename;
     @Size(min=10, message="Enter at least 10 characters")
     @Size(max=255, message="Maximum allowed characters is 255")
-    @Pattern(regexp="^[a-zA-z]+$", message="Enter only letters")
     private String projectDescription;
 
     public Project() {
