@@ -16,11 +16,9 @@ public class Project {
     private int id;
     @NotEmpty
     private String username;
-    @NotEmpty
     @Size(min=2, message="Enter at least 2 characters")
     @Size(max=30, message="Maximum allowed characters is 30")
     private String projectName;
-    @NotEmpty
     @Size(min=2, message="Enter at least 2 characters")
     @Size(max=15, message="Maximum allowed characters is 15")
     @Pattern(regexp="^[a-zA-z]+$", message="Enter only letters")
@@ -32,16 +30,21 @@ public class Project {
     @Pattern(regexp="^((http)|(https))[:][\\/][\\/]+$", message="Enter valid url starting with: http:// or https://")
     private String projectUrl;
     private String projectImageFilename;
+    @Size(min=10, message="Enter at least 10 characters")
+    @Size(max=255, message="Maximum allowed characters is 255")
+    @Pattern(regexp="^[a-zA-z]+$", message="Enter only letters")
+    private String projectDescription;
 
     public Project() {
     }
 
     public Project(String username, String projectName, String projectType,
-                   LocalDate dateOfCompletion, String sourceCodeUrl,
+                   String projectDescription, LocalDate dateOfCompletion, String sourceCodeUrl,
                    String projectUrl, String projectImageFilename) {
         this.username = username;
         this.projectName = projectName;
         this.projectType = projectType;
+        this.projectDescription = projectDescription;
         this.dateOfCompletion = dateOfCompletion;
         this.sourceCodeUrl = sourceCodeUrl;
         this.projectUrl = projectUrl;
@@ -78,6 +81,14 @@ public class Project {
 
     public void setProjectType(String projectType) {
         this.projectType = projectType;
+    }
+
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
     public LocalDate getDateOfCompletion() {
@@ -120,9 +131,10 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectType='" + projectType + '\'' +
                 ", dateOfCompletion=" + dateOfCompletion +
-                ", sourceCodeURL='" + sourceCodeUrl + '\'' +
-                ", projectURL='" + projectUrl + '\'' +
+                ", sourceCodeUrl='" + sourceCodeUrl + '\'' +
+                ", projectUrl='" + projectUrl + '\'' +
                 ", projectImageFilename='" + projectImageFilename + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
                 '}';
     }
 }
