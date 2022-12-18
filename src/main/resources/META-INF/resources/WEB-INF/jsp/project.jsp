@@ -1,5 +1,5 @@
 <%@ include file="common/header.jspf" %>
-<title>Add Project</title>
+<title>Project</title>
 </head>
 
 <body>
