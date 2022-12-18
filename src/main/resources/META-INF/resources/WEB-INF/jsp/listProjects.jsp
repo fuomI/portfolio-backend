@@ -20,6 +20,7 @@
                 </tr>
                 <tr>
                     <td><a href="delete-project?id=${project.id}" class="btn btn-warning" style="background-color: #f87c7c">Delete</a></td>
+                    <td><a href="update-project?id=${project.id}" class="btn btn-success">Update</a></td>
                 </tr>
             </c:forEach>
             </tbody>
