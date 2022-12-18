@@ -68,8 +68,14 @@ public class ProjectControllerJpa {
         return "redirect:list-projects";
     }
 
-    
+    // Route for showing project page with attributes of a specific Project (update)
+    @RequestMapping(value="update-project", method = RequestMethod.GET)
+    public String showUpdateProjectPage(@RequestParam int id, ModelMap model) {
+        Project project = projectRepository.findById(id).get();
+        model.addAttribute("project", project);
 
+        return "project";
+    }
 
     private static String getLoggedInUserName() {
         Authentication authentication =
