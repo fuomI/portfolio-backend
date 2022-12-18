@@ -76,6 +76,20 @@ public class ProjectControllerJpa {
         return "project";
     }
 
+    // Update route with POST method to actually update Projects
+    @RequestMapping(value="update-project", method = RequestMethod.POST)
+    public String updateProject(@Valid Project project, BindingResult result) {
+        if(result.hasErrors()) {
+            return "project";
+        }
+
+        String username = getLoggedInUserName();
+        project.setUsername(username);
+        projectRepository.save(project);
+        
+        return "redirect:list-projects";
+    }
+
     private static String getLoggedInUserName() {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
