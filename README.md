@@ -75,7 +75,6 @@ Frontend shall be done after the backend is ready.
 
 
 - **Frontend can access Projects data via Internal REST API**
-  - **/rest/get/projects** -route returns all projects in JSON
 
 
 ## Technologies
