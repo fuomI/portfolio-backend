@@ -32,8 +32,8 @@ Frontend shall be done after the backend is ready.
   
   
 - **hotfix_1, 2, 3...**
-  - Changes that are not planned but must be done are handled in hot_fix branches.
-  - Merging to development when hot_fix is done.
+  - Changes that are not planned but must be done are handled in hotfix branches.
+  - Merging to development when hotfix is done.
   
 
 ## Requirements
