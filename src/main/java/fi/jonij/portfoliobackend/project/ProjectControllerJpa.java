@@ -62,11 +62,14 @@ public class ProjectControllerJpa {
 
     // Route for deleting a project by id
     @RequestMapping("delete-project")
-    public String deleteTodo(@RequestParam int id) {
+    public String deleteProject(@RequestParam int id) {
         projectRepository.deleteById(id);
 
         return "redirect:list-projects";
     }
+
+    
+
 
     private static String getLoggedInUserName() {
         Authentication authentication =
