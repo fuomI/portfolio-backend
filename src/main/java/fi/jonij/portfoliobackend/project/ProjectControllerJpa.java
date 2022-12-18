@@ -26,7 +26,7 @@ public class ProjectControllerJpa {
 
     // Route for listing all projects of the logged user
     @RequestMapping("list-projects")
-    public String listAllProjects(ModelMap model) {
+    public String showListAllProjectsPage(ModelMap model) {
         String username = getLoggedInUserName();
         List<Project> projects = projectRepository.findByUsername(username);
         model.addAttribute("projects", projects);
