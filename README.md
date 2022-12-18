@@ -88,7 +88,7 @@ Frontend shall be done after the backend is ready.
 - **Spring Boot Rest** - REST API
 - **MySQL drivers** - Production database
 - **Bootstrap** - CSS Framework for styling
-- **jQuery** - JavaScript library for functionalities like calendar picker
+- **jQuery** - JavaScript library for functionalities
 - **JSTL** - JSP Standard Tag Library for working with JSPs
 
 
