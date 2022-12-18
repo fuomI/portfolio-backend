@@ -52,8 +52,8 @@ Frontend shall be done after the backend is ready.
   - **username** (String), required
   - **projectName** (String), required
   - **projectType** (String), required
+  - **projectDescription** (String), required
   - **dateOfCompletion** (LocalDate), required
-  - **isDeployed** (boolean), required
   - **sourceCodeURL** (String)
   - **projectURL** (String)
   - **projectImageFilename** (String)
