@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -38,7 +37,7 @@ public class ProjectControllerJpa {
     @RequestMapping(value="add-project", method = RequestMethod.GET)
     public String showNewProjectPage(ModelMap model) {
         String username = getLoggedInUserName();
-        Project project = new Project(username, "", "","", LocalDate.now(),
+        Project project = new Project(username, "", "","", null,
                 "", "", "" );
         model.addAttribute("project", project);
 
