@@ -82,11 +82,12 @@ public class ProjectControllerJpa {
         if(result.hasErrors()) {
             return "project";
         }
-
+        
         String username = getLoggedInUserName();
         project.setUsername(username);
+        project.setProjectImageFilename("default.png"); // Temporary hard code, until file upload implemented
         projectRepository.save(project);
-        
+
         return "redirect:list-projects";
     }
 
