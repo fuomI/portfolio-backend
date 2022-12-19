@@ -26,6 +26,7 @@ class ProjectControllerJpaTest {
     private MockMvc mockMvc;
 
     public static final String ALL_PROJECTS_URL = "http://localhost:8080/list-projects";
+    public static final String ADD_NEW_PROJECT = "http://localhost:8080/add-project";
 
     @Test
     void showListAllProjectsPage_basicScenario() throws Exception {
@@ -45,7 +46,14 @@ class ProjectControllerJpaTest {
         assertEquals(404, mvcResult.getResponse().getStatus());
     }
 
+    @Test
+    void showNewProjectPage_basicScenario() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(ADD_NEW_PROJECT);
 
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        assertEquals(200, mvcResult.getResponse().getStatus());
+    }
 
 
 }
