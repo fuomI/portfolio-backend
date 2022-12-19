@@ -20,7 +20,7 @@ class ProjectRepositoryIntegrationTest {
             LocalDate.now(), "http://github.com", "https://railway.app/project",
             "testproject.jpg");
 
-    Project testProject2 = new Project("tester", "testProject", "Coding",
+    private Project testProject2 = new Project("tester", "testProject", "Coding",
             "This is testProject for testing the project repository",
             LocalDate.now(), "http://github.com",
             "https://railway.app/project", "testproject.jpg");
