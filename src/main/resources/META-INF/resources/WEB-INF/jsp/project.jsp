@@ -9,7 +9,7 @@
         <h1>Enter Project Details</h1>
 
         <%--@elvariable id="project" type="fi.jonij.portfoliobackend.project.Project"--%>
-        <form:form method="post" modelAttribute="project">
+        <form:form method="post" modelAttribute="project" enctype="multipart/form-data">
 
             <fieldset class="mb-3">
                 <form:label for="nameInput" path="projectName" cssClass="form-label">Name</form:label>
@@ -46,13 +46,12 @@
                 <form:input id="projectUrlInput" type="text" path="projectUrl" cssClass="form-control"/>
                 <form:errors path="projectUrl" cssClass="text-warning"/>
             </fieldset>
+            
+            <fieldset class="mb-3">
+                <input type="file" name="file"/>
+            </fieldset>
 
-<%--            <fieldset class="mb-3">--%>
-<%--                <form:label path="projectImageFilename">Target Date</form:label>--%>
-<%--                <form:input type="file" path="projectImageFilename"/>--%>
-<%--                <form:errors path="projectImageFilename" cssClass="text-warning"/>--%>
-<%--            </fieldset>--%>
-
+            <form:input type="hidden" path="projectImageFilename"/>
             <form:input type="hidden" path="username"/>
             <form:input type="hidden" path="id"/>
 
