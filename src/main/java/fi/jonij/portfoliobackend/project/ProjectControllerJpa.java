@@ -68,7 +68,8 @@ public class ProjectControllerJpa {
 
         } catch (StorageException e) {
             newProject.setProjectImageFilename("default.png");
-            System.out.println("File upload failed: " + e.getMessage());
+            System.out.println("File upload failed: " + e.getMessage() + "\n" +
+                    "Setting image to 'default.png'");
         }
 
         projectRepository.save(newProject);
@@ -95,14 +96,28 @@ public class ProjectControllerJpa {
 
     // Update route with POST method to actually update Projects
     @RequestMapping(value="update-project", method = RequestMethod.POST)
-    public String updateProject(@Valid Project project, BindingResult result) {
+    public String updateProject(@RequestParam("file") MultipartFile file,
+                                @Valid Project project, BindingResult result) {
         if(result.hasErrors()) {
             return "project";
         }
 
         String username = getLoggedInUserName();
         project.setUsername(username);
-        project.setProjectImageFilename("default.png"); // Temporary hard code, until file upload implemented
+
+        // If no file to upload is chosen StorageException is thrown -> default image is used
+        try {
+            storageService.store(file);
+            project.setProjectImageFilename(file.getOriginalFilename());
+
+        } catch (StorageException e) {
+            if(project.getProjectImageFilename().equals("")) {
+                project.setProjectImageFilename("default.png");
+                System.out.println("File upload failed: " + e.getMessage() + "\n" +
+                                    "Setting image to 'default.png'");
+            }
+        }
+
         projectRepository.save(project);
 
         return "redirect:list-projects";
