@@ -28,7 +28,7 @@ class ProjectControllerJpaTest {
     public static final String ALL_PROJECTS_URL = "http://localhost:8080/list-projects";
 
     @Test
-    void listAllProjects_basicScenario() throws Exception {
+    void showListAllProjectsPage_basicScenario() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(ALL_PROJECTS_URL);
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
@@ -37,13 +37,15 @@ class ProjectControllerJpaTest {
     }
 
     @Test
-    void listAllProjects_negativeScenario() throws Exception {
+    void showListAllProjectsPage_negativeScenario() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/list-projectz");
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
 
         assertEquals(404, mvcResult.getResponse().getStatus());
     }
+
+
 
 
 }
