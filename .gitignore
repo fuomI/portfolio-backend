@@ -26,4 +26,5 @@ src/main/resources/application.properties
 ### other ###
 src/main/java/fi/jonij/portfoliobackend/security/Credentials.java
 target/
+src/main/resources/static/upload
 
