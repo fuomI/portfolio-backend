@@ -19,7 +19,6 @@ public class PortfolioBackendApplication {
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
-			storageService.deleteAll();
 			storageService.init();
 		};
 	}
