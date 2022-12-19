@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.storage.StorageService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,8 +20,11 @@ public class ProjectControllerJpa {
 
     private ProjectRepository projectRepository;
 
-    public ProjectControllerJpa(ProjectRepository projectRepository) {
+    private final StorageService storageService;
+
+    public ProjectControllerJpa(ProjectRepository projectRepository, StorageService storageService) {
         this.projectRepository = projectRepository;
+        this.storageService = storageService;
     }
 
     // Route for listing all projects of the logged user
