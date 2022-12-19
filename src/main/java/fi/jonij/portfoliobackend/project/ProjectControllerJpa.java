@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,14 +51,17 @@ public class ProjectControllerJpa {
 
     // Handling the form POST at 'add-project' route
     @RequestMapping(value="add-project", method = RequestMethod.POST)
-    public String addNewProject(@Valid Project newProject, BindingResult result) {
+    public String addNewProject(@RequestParam("file") MultipartFile file,
+                                @Valid Project newProject, BindingResult result) {
         if(result.hasErrors()) {
             return "project";
         }
 
+        storageService.store(file);
+
         String username = getLoggedInUserName();
         newProject.setUsername(username);
-        newProject.setProjectImageFilename("default.png"); // Temporary hard code, until file upload implemented
+        newProject.setProjectImageFilename(file.getOriginalFilename());
         projectRepository.save(newProject);
 
         return "redirect:list-projects";
