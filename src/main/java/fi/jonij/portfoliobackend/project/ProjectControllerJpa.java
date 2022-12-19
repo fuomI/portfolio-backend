@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.storage.StorageException;
 import fi.jonij.portfoliobackend.storage.StorageService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -57,11 +58,19 @@ public class ProjectControllerJpa {
             return "project";
         }
 
-        storageService.store(file);
-
         String username = getLoggedInUserName();
         newProject.setUsername(username);
-        newProject.setProjectImageFilename(file.getOriginalFilename());
+
+        // If no file to upload is chosen StorageException is thrown -> default image is used
+        try {
+            storageService.store(file);
+            newProject.setProjectImageFilename(file.getOriginalFilename());
+
+        } catch (StorageException e) {
+            newProject.setProjectImageFilename("default.png");
+            System.out.println("File upload failed: " + e.getMessage());
+        }
+
         projectRepository.save(newProject);
 
         return "redirect:list-projects";
