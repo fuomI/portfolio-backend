@@ -36,4 +36,14 @@ class ProjectControllerJpaTest {
         assertEquals(200, mvcResult.getResponse().getStatus());
     }
 
+    @Test
+    void listAllProjects_negativeScenario() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/list-projectz");
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        assertEquals(404, mvcResult.getResponse().getStatus());
+    }
+
+
 }
