@@ -38,7 +38,7 @@ class ProjectControllerJpaTest {
     }
 
     @Test
-    void showListAllProjectsPage_negativeScenario() throws Exception {
+    void invalidUrl_basicScenario() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/list-projectz");
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
@@ -54,6 +54,5 @@ class ProjectControllerJpaTest {
 
         assertEquals(200, mvcResult.getResponse().getStatus());
     }
-
 
 }
