@@ -10,7 +10,7 @@
             <tbody>
             <c:forEach items="${projects}" var="project">
                 <tr>
-                    <td><img src="/upload/${project.projectImageFilename}" class="img-fluid" alt="Default project image" width="132" height="100"></td>
+                    <td><img src="/upload/${project.projectImageFilename}" class="img-fluid" alt="Image of a project: ${project.projectName}" width="132" height="100"></td>
                     <td><b>Name:</b> ${project.projectName}<br>
                         <b>Type:</b> ${project.projectType}<br>
                         <b>Description: </b>${project.projectDescription}<br>
