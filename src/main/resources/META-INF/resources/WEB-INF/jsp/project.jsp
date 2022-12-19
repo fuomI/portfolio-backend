@@ -46,7 +46,7 @@
                 <form:input id="projectUrlInput" type="text" path="projectUrl" cssClass="form-control"/>
                 <form:errors path="projectUrl" cssClass="text-warning"/>
             </fieldset>
-            
+
             <fieldset class="mb-3">
                 <input type="file" name="file"/>
             </fieldset>
