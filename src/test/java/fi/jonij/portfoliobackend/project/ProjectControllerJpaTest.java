@@ -1,6 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
 import fi.jonij.portfoliobackend.storage.StorageService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,15 +37,18 @@ class ProjectControllerJpaTest {
     @InjectMocks
     private ProjectControllerJpa projectControllerJpa;
 
-    @Test
-    public void showListAllProjectsPage_basicScenario() {
+    @BeforeEach
+    public void setUpSecurityContextAndAuthenticationObject() {
         // Set up the security context
         SecurityContextHolder.setContext(securityContext);
 
         // Set up the authentication object
         when(authentication.getName()).thenReturn("testuser");
         when(securityContext.getAuthentication()).thenReturn(authentication);
+    }
 
+    @Test
+    public void showListAllProjectsPage_basicScenario() {
         // Set up mock behavior for the project repository
         List<Project> projects = Arrays.asList(new Project("testuser", "testProject", "Coding",
                                 "This is testProject for testing the project repository",
