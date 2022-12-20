@@ -31,7 +31,12 @@ public class FileSystemStorageService implements StorageService {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
+            } else if (!file.getOriginalFilename().endsWith(".png") ||
+                        !file.getOriginalFilename().endsWith(".jpg") ||
+                        !file.getOriginalFilename().endsWith(".jpeg")) {
+                throw new StorageException("Failed to store file. Only .png, .jpg or .jpeg allowed.");
             }
+
             Path destinationFile = this.rootLocation.resolve(
                             Paths.get(file.getOriginalFilename()))
                     .normalize().toAbsolutePath();
