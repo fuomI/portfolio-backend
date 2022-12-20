@@ -1,11 +1,13 @@
 package fi.jonij.portfoliobackend.project;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProjectResource {
@@ -25,5 +27,16 @@ public class ProjectResource {
         }
 
         return projects;
+    }
+
+    @RequestMapping("/rest/projects/{projectId}")
+    public Project retrieveProjectById(@PathVariable int projectId) {
+        Optional<Project> project = projectRepository.findById(projectId);
+
+        if(project.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return project.get();
     }
 }
