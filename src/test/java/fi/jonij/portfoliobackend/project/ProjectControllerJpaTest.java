@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,6 +72,29 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("listProjects", viewName);
         assertEquals(projects, model.get("projects"));
+    }
+
+    @Test
+    public void showNewProjectPage_basicScenario() {
+        Project project = new Project("testuser","","","",null,"","", "");
+
+        // Set up a ModelMap instance and invoke the controller method
+        ModelMap model = new ModelMap();
+        model.addAttribute("project", project);
+
+        String viewName = projectControllerJpa.showNewProjectPage(model);
+        Project result = (Project) model.get("project");
+
+        // Assert the expected behavior
+        assertEquals("project", viewName);
+        assertEquals(0, result.getId());
+        assertEquals("testuser", result.getUsername());
+        assertEquals("", result.getProjectType());
+        assertEquals("", result.getProjectDescription());
+        assertNull(result.getDateOfCompletion());
+        assertEquals("", result.getSourceCodeUrl());
+        assertEquals("", result.getProjectUrl());
+        assertEquals("", result.getProjectImageFilename());
     }
 
 }
