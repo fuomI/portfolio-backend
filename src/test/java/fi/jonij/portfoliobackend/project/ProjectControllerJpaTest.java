@@ -1,7 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
 import fi.jonij.portfoliobackend.storage.StorageService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,18 +40,15 @@ class ProjectControllerJpaTest {
     @InjectMocks
     private ProjectControllerJpa projectControllerJpa;
 
-    @BeforeEach
-    public void setUpSecurityContextAndAuthenticationObject() {
+    @Test
+    public void showListAllProjectsPage_basicScenario() {
         // Set up the security context
         SecurityContextHolder.setContext(securityContext);
 
         // Set up the authentication object
         when(authentication.getName()).thenReturn("testuser");
         when(securityContext.getAuthentication()).thenReturn(authentication);
-    }
 
-    @Test
-    public void showListAllProjectsPage_basicScenario() {
         // Set up mock behavior for the project repository
         List<Project> projects = Arrays.asList(
                 new Project("testuser", "testProject", "Coding",
@@ -80,6 +76,13 @@ class ProjectControllerJpaTest {
 
     @Test
     public void showNewProjectPage_basicScenario() {
+        // Set up the security context
+        SecurityContextHolder.setContext(securityContext);
+
+        // Set up the authentication object
+        when(authentication.getName()).thenReturn("testuser");
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
         Project project = new Project("testuser","","","",null,"","", "");
 
         // Set up a ModelMap instance and invoke the controller method
@@ -103,6 +106,13 @@ class ProjectControllerJpaTest {
 
     @Test
     public void addNewProject_basicScenario() {
+        // Set up the security context
+        SecurityContextHolder.setContext(securityContext);
+
+        // Set up the authentication object
+        when(authentication.getName()).thenReturn("testuser");
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
         // Set up mock behavior for the project repository
         Project newProject = new Project("testuser", "testProject", "Coding",
                 "This is a test project", LocalDate.now(), "http://github.com",
@@ -123,6 +133,23 @@ class ProjectControllerJpaTest {
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(newProject);
         verify(storageService).store(file);
+    }
+
+    @Test
+    public void addNewProject_bindingErrorsScenario() {
+        // Set up mock behavior for the project repository
+        Project newProject = new Project("testuser", "t", "c",
+                "short", null, "ithub.com",
+                "ilway.app/project", "testproject.jpg");
+
+        // Invoke the controller method
+        when(bindingResult.hasErrors()).thenReturn(true);
+        String viewName = projectControllerJpa.addNewProject(file, newProject, bindingResult);
+
+        // Assert the expected behavior
+        assertEquals("project", viewName);
+        verify(projectRepository, never()).save(newProject);
+        verify(storageService, never()).store(file);
     }
 
 }
