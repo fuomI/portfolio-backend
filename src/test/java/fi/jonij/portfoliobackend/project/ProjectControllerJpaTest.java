@@ -250,4 +250,22 @@ class ProjectControllerJpaTest {
         verify(projectRepository).save(updatedProject);
         verify(storageService).store(file);
     }
+
+    @Test
+    public void updateProject_bindingErrorsScenario() {
+        // Set up mock behavior for the project repository
+        Project updatedProject = new Project("testuser", "t", "c",
+                "short", null, "ithub.com",
+                "ilway.app/project", "testproject.jpg");
+
+        // Invoke the controller method
+        when(bindingResult.hasErrors()).thenReturn(true);
+        String viewName = projectControllerJpa.addNewProject(file, updatedProject, bindingResult);
+
+        // Assert the expected behavior
+        assertEquals("project", viewName);
+        verify(projectRepository, never()).save(updatedProject);
+        verify(storageService, never()).store(file);
+    }
+
 }
