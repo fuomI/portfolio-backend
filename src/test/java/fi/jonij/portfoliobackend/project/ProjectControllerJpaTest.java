@@ -1,58 +1,72 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.storage.StorageService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.ModelMap;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
-@WebMvcTest(controllers = ProjectControllerJpa.class)
-@AutoConfigureMockMvc(addFilters = false) // disable Spring Security for Unit tests
+@ExtendWith(MockitoExtension.class)
 class ProjectControllerJpaTest {
 
-    @MockBean
+    @Mock
     private ProjectRepository projectRepository;
 
-    @MockBean
+    @Mock
+    private StorageService storageService;
+
+    @Mock
+    SecurityContext securityContext;
+
+    @Mock
+    Authentication authentication;
+
+    @InjectMocks
     private ProjectControllerJpa projectControllerJpa;
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    public static final String ALL_PROJECTS_URL = "http://localhost:8080/list-projects";
-    public static final String ADD_NEW_PROJECT = "http://localhost:8080/add-project";
-
     @Test
-    void showListAllProjectsPage_basicScenario() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(ALL_PROJECTS_URL);
+    public void showListAllProjectsPage_basicScenario() {
+        // Set up the security context
+        SecurityContextHolder.setContext(securityContext);
 
-        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        // Set up the authentication object
+        when(authentication.getName()).thenReturn("testuser");
+        when(securityContext.getAuthentication()).thenReturn(authentication);
 
-        assertEquals(200, mvcResult.getResponse().getStatus());
-    }
+        // Set up mock behavior for the project repository
+        List<Project> projects = Arrays.asList(new Project("testuser", "testProject", "Coding",
+                                "This is testProject for testing the project repository",
+                                                LocalDate.now(), "http://github.com", "https://railway.app/project",
+                                "testproject.jpg"),
 
-    @Test
-    void invalidUrl_basicScenario() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/list-projectz");
+                                                new Project("testuser", "testProject2", "Coding",
+                                    "This is testProject for testing the project repository",
+                                                    LocalDate.now(), "http://github.com", "https://railway.app/project",
+                                    "testproject2.jpg"));
 
-        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        when(projectRepository.findByUsername("testuser")).thenReturn(projects);
 
-        assertEquals(404, mvcResult.getResponse().getStatus());
-    }
+        // Create a ModelMap instance and invoke the controller method
+        ModelMap model = new ModelMap();
+        model.addAttribute("projects", projects);
 
-    @Test
-    void showNewProjectPage_basicScenario() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(ADD_NEW_PROJECT);
+        String viewName = projectControllerJpa.showListAllProjectsPage(model);
 
-        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-
-        assertEquals(200, mvcResult.getResponse().getStatus());
+        // Assert the expected behavior
+        assertEquals("listProjects", viewName);
+        assertEquals(projects, model.get("projects"));
     }
 
 }
