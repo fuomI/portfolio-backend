@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -191,11 +192,33 @@ class ProjectControllerJpaTest {
         newProject.setId(1);
 
         // Call the deleteProject method and verify the result
-        String result = projectControllerJpa.deleteProject(1);
-        assertEquals("redirect:list-projects", result);
+        String viewName = projectControllerJpa.deleteProject(1);
+        assertEquals("redirect:list-projects", viewName);
 
         // Verify that the deleteById method was called with the correct id parameter
         verify(projectRepository).deleteById(1);
     }
 
+    @Test
+    public void showUpdateProjectPage_basicScenario() {
+        // Set up test data
+        int id = 1;
+        Project project = new Project("testuser", "testProject", "Coding",
+                "This is a test project", LocalDate.now(), "http://github.com",
+                "https://railway.app/project", "");
+        project.setId(id);
+
+        // Set up mock behavior
+        when(projectRepository.findById(id)).thenReturn(Optional.of(project));
+
+        // Create mock ModelMap
+        ModelMap model = mock(ModelMap.class);
+
+        // Invoke the method being tested
+        String viewName = projectControllerJpa.showUpdateProjectPage(id, model);
+
+        // Verify the results
+        assertEquals("project", viewName);
+        verify(model).addAttribute("project", project);
+    }
 }
