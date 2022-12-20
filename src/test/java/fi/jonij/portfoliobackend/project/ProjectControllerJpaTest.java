@@ -244,7 +244,7 @@ class ProjectControllerJpaTest {
 
         // Create a BindingResult instance and invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
-        String viewName = projectControllerJpa.addNewProject(file, updatedProject, bindingResult);
+        String viewName = projectControllerJpa.updateProject(file, updatedProject, bindingResult);
 
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
@@ -261,7 +261,7 @@ class ProjectControllerJpaTest {
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(true);
-        String viewName = projectControllerJpa.addNewProject(file, updatedProject, bindingResult);
+        String viewName = projectControllerJpa.updateProject(file, updatedProject, bindingResult);
 
         // Assert the expected behavior
         assertEquals("project", viewName);
@@ -290,7 +290,7 @@ class ProjectControllerJpaTest {
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
-        String viewName = projectControllerJpa.addNewProject(file, updatedProject, bindingResult);
+        String viewName = projectControllerJpa.updateProject(file, updatedProject, bindingResult);
 
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
