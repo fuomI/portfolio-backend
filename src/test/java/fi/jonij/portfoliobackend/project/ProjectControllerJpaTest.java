@@ -30,9 +30,13 @@ class ProjectControllerJpaTest {
     @Mock
     private StorageService storageService;
     @Mock
-    SecurityContext securityContext;
+    private SecurityContext securityContext;
     @Mock
-    Authentication authentication;
+    private Authentication authentication;
+    @Mock
+    private MultipartFile file;
+    @Mock
+    private BindingResult bindingResult;
 
     @InjectMocks
     private ProjectControllerJpa projectControllerJpa;
@@ -108,14 +112,10 @@ class ProjectControllerJpaTest {
         when(projectRepository.save(newProject)).thenReturn(newProject);
 
         // Set up mock behavior for the storage service
-        MultipartFile file = mock(MultipartFile.class);
-
-        // Set up mock behavior for the storage service
         when(file.getOriginalFilename()).thenReturn("testproject.jpg");
         doNothing().when(storageService).store(file);
 
         // Create a BindingResult instance and invoke the controller method
-        BindingResult bindingResult = mock(BindingResult.class);
         when(bindingResult.hasErrors()).thenReturn(false);
         String viewName = projectControllerJpa.addNewProject(file, newProject, bindingResult);
 
