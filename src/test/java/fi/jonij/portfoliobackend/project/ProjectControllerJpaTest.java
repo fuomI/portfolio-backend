@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.storage.StorageException;
 import fi.jonij.portfoliobackend.storage.StorageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -150,6 +151,36 @@ class ProjectControllerJpaTest {
         assertEquals("project", viewName);
         verify(projectRepository, never()).save(newProject);
         verify(storageService, never()).store(file);
+    }
+
+    @Test
+    public void addNewProject_fileOriginalFilenameIsNullScenario() {
+        // Set up the security context
+        SecurityContextHolder.setContext(securityContext);
+
+        // Set up the authentication object
+        when(authentication.getName()).thenReturn("testuser");
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        // Set up mock behavior for the project repository
+        Project newProject = new Project("testuser", "testProject", "Coding",
+                "This is a test project", LocalDate.now(), "http://github.com",
+                "https://railway.app/project", "");
+
+        when(projectRepository.save(newProject)).thenReturn(newProject);
+
+        // Set up mock behavior for the storage service
+        doThrow(new StorageException("File is null")).when(storageService).store(file);
+
+        // Invoke the controller method
+        when(bindingResult.hasErrors()).thenReturn(false);
+        String viewName = projectControllerJpa.addNewProject(file, newProject, bindingResult);
+
+        // Assert the expected behavior
+        assertEquals("redirect:list-projects", viewName);
+        verify(projectRepository).save(newProject);
+        verify(storageService).store(file);
+        assertEquals("default.png", newProject.getProjectImageFilename());
     }
 
 }
