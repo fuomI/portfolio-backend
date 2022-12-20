@@ -183,4 +183,19 @@ class ProjectControllerJpaTest {
         assertEquals("default.png", newProject.getProjectImageFilename());
     }
 
+    @Test
+    public void deleteProject_basicScenario() {
+        Project newProject = new Project("testuser", "testProject", "Coding",
+                "This is a test project", LocalDate.now(), "http://github.com",
+                "https://railway.app/project", "");
+        newProject.setId(1);
+
+        // Call the deleteProject method and verify the result
+        String result = projectControllerJpa.deleteProject(1);
+        assertEquals("redirect:list-projects", result);
+
+        // Verify that the deleteById method was called with the correct id parameter
+        verify(projectRepository).deleteById(1);
+    }
+
 }
