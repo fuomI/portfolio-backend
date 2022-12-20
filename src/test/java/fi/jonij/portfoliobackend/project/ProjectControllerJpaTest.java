@@ -185,6 +185,7 @@ class ProjectControllerJpaTest {
 
     @Test
     public void deleteProject_basicScenario() {
+        // Set up test data
         Project newProject = new Project("testuser", "testProject", "Coding",
                 "This is a test project", LocalDate.now(), "http://github.com",
                 "https://railway.app/project", "");
