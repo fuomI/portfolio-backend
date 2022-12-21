@@ -1,18 +1,25 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.storage.StorageService;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProjectResourceIntegrationTest {
@@ -20,8 +27,11 @@ public class ProjectResourceIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private StorageService storageService;
+
     public static final String ALL_PROJECTS_URL = "http://localhost:8080/rest/projects";
-    public static final String IMAGES_URL = "http://localhost:8080/rest/images/";
+    public static final String IMAGES_URL = "http://localhost:8080/rest/images";
 
     @Test
     public void retrieveAllProjects_successfulScenario() throws JSONException {
@@ -108,6 +118,44 @@ public class ProjectResourceIntegrationTest {
 
         // Check content, strict: false
         JSONAssert.assertEquals(expectedResponse, responseEntity.getBody(), false);
+    }
+
+    @Test
+    public void retrieveProjectImage_successfulScenario() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "image/png");
+
+        HttpEntity<String> httpEntity = new HttpEntity<>(null, headers);
+
+        // GET request using TestRestTemplate
+        ResponseEntity<Resource> responseEntity =
+                restTemplate.exchange(IMAGES_URL + "/default.png", HttpMethod.GET, httpEntity, Resource.class);
+
+        // Compare bytes of the response body and the file from filesystem
+        try {
+            String expectedFilePath = "src/main/resources/static/upload/default.png";
+            byte[] expected = Files.readAllBytes(Paths.get(expectedFilePath));
+
+            if(responseEntity.getBody() != null) {
+                InputStream inputStream = responseEntity.getBody().getInputStream();
+                byte[] actual = IOUtils.toByteArray(inputStream);
+
+                // Check status
+                assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
+
+                // Check content-type
+                assertEquals("image/png", responseEntity.getHeaders().get("Content-Type").get(0));
+
+                // Check content
+                assertArrayEquals(expected, actual);
+
+            } else {
+                fail("Response body was null!");
+            }
+
+        } catch (IOException e) {
+            fail("IO operations failed, " + e.getMessage());
+        }
     }
 
 }
