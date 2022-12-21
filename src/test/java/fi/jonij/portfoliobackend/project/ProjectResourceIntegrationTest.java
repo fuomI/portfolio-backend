@@ -28,7 +28,7 @@ public class ProjectResourceIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        HttpEntity<String> httpEntity = new HttpEntity<String>(null, headers);
+        HttpEntity<String> httpEntity = new HttpEntity<>(null, headers);
 
         // GET request using TestRestTemplate
         ResponseEntity<String> responseEntity =
@@ -61,6 +61,8 @@ public class ProjectResourceIntegrationTest {
                                 ]
                                 """;
 
+        System.out.println(responseEntity.getBody().toString());
+
         // Check status
         assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
 
@@ -70,4 +72,42 @@ public class ProjectResourceIntegrationTest {
         // Check content, strict: false
         JSONAssert.assertEquals(expectedResponse, responseEntity.getBody(), false);
     }
+
+    @Test
+    public void retrieveProjectById_successfulScenario() throws JSONException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        HttpEntity<String> httpEntity = new HttpEntity<>(null, headers);
+
+        // GET request using TestRestTemplate
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange(ALL_PROJECTS_URL + "/1001", HttpMethod.GET, httpEntity, String.class);
+
+        String expectedResponse = """
+                                    {
+                                        "id": 1001,
+                                        "username": "tester",
+                                        "projectName": "test project one",
+                                        "projectType": "Coding",
+                                        "dateOfCompletion": "2022-12-20",
+                                        "sourceCodeUrl": "https://www.github.com/testproj1",
+                                        "projectUrl": "https://railway.app/testproj1",
+                                        "projectImageFilename": "default.png",
+                                        "projectDescription": "Project for testing the backend of my portfolio"
+                                    }
+                                """;
+
+        System.out.println(responseEntity.getBody().toString());
+
+        // Check status
+        assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
+
+        // Check content-type
+        assertEquals("application/json", responseEntity.getHeaders().get("Content-Type").get(0));
+
+        // Check content, strict: false
+        JSONAssert.assertEquals(expectedResponse, responseEntity.getBody(), false);
+    }
+
 }
