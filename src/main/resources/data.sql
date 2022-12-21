@@ -4,7 +4,7 @@ INSERT INTO PROJECT
 VALUES
     (1001, 'tester', 'test project one', 'Coding',
      'Project for testing the backend of my portfolio',
-     CURRENT_DATE(), 'https://www.github.com/testproj1',
+     '2022-12-20', 'https://www.github.com/testproj1',
      'https://railway.app/testproj1', 'default.png');
 
 INSERT INTO PROJECT
@@ -13,5 +13,5 @@ INSERT INTO PROJECT
 VALUES
     (1002, 'tester', 'test project two', 'UX',
      'Second project for testing the backend of my portfolio',
-     CURRENT_DATE(), 'https://www.github.com/testproj2',
+     '2022-12-20', 'https://www.github.com/testproj2',
      'https://railway.app/testproj2', 'default.png');
