@@ -17,9 +17,9 @@ import java.util.Optional;
 @RestController
 public class ProjectResource {
 
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
-    private StorageService storageService;
+    private final StorageService storageService;
 
     public ProjectResource(ProjectRepository projectRepository, StorageService storageService) {
         this.projectRepository = projectRepository;
@@ -51,7 +51,7 @@ public class ProjectResource {
 
     @GetMapping("/rest/images/{projectImageFilename}")
     public ResponseEntity<Resource> retrieveProjectImage(@PathVariable String projectImageFilename) {
-        Resource resource = null;
+        Resource resource;
 
         try {
             resource = storageService.loadAsResource(projectImageFilename);
@@ -62,7 +62,7 @@ public class ProjectResource {
 
         if(resource.exists()) {
             // Set the content type of the response based on the file extension
-            String contentType = null;
+            String contentType;
             if (projectImageFilename.endsWith(".png")) {
                 contentType = MediaType.IMAGE_PNG_VALUE;
             } else if (projectImageFilename.endsWith(".jpg") || projectImageFilename.endsWith(".jpeg")) {
