@@ -57,7 +57,7 @@ public class SpringSecurityConfiguration {
     }
 
     // Protects all URLs, login form shown for unauthorized requests,
-    // CSRF disabled, frames enabled from same origin (H2 Works)
+    // CSRF not disabled, for production
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
@@ -66,7 +66,6 @@ public class SpringSecurityConfiguration {
 
         http.formLogin(withDefaults());
 
-        http.csrf().disable();
         http.headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
