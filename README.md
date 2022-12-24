@@ -10,31 +10,30 @@ Frontend shall be done after the backend is ready.
 ### The project has five different kinds of branches:
 - **main (production)**
   - This is only touched when release is ready to be merged to the main.
-  
-  
+
+
 - **release**
-  - Unit tests are  not included in the release branch.
   - H2 database is switched to MySQL database.
   - Last check that everything is as it should for production phase.
-  
-  
+
+
 - **development**
-  - When development is ready, it is then merged to the release branch.
-  
-  
+  - Has development settings like H2 memory database etc.
+
+
 - **project_task_3, 4, 5...**
   - When project_task is complete, it is then merged to the development branch.
-  
-  
+
+
 - **coding_task_1, 2, 3...**
-  - When coding_task passes the exit criteria, it is then merged to the development branch.
-  - Exit criteria is explained later in the documentation.
-  
-  
+  - When coding_task is done, it is then merged to the development branch.
+  - Last coding task before release is merged into release instead of development.
+
+
 - **hotfix_1, 2, 3...**
   - Changes that are not planned but must be done are handled in hotfix branches.
   - Merging to development when hotfix is done.
-  
+
 
 ## Requirements
 
@@ -44,7 +43,6 @@ Frontend shall be done after the backend is ready.
 
 
 - **Admin can logout**
-  - Admin redirected to frontend
 
 
 - **All relevant information stored about Projects**
@@ -54,12 +52,12 @@ Frontend shall be done after the backend is ready.
   - **projectType** (String), required
   - **projectDescription** (String), required
   - **dateOfCompletion** (LocalDate), required
-  - **sourceCodeURL** (String)
-  - **projectURL** (String)
-  - **projectImageFilename** (String)
+  - **sourceCodeURL** (String), required
+  - **projectURL** (String), required
+  - **projectImageFilename** (String), required
 
 
-- **Admin can interact with project database (MySQL) using graphical UI** 
+- **Admin can interact with project database (MySQL) using graphical UI**
   - **Create project**
     - id is set automatically
     - Project image can be uploaded, projectImageFilename set in process
@@ -84,12 +82,16 @@ Frontend shall be done after the backend is ready.
 - **Spring Web** - For building webapp
 - **Spring Boot starter test** - JUnit, Mockito etc. for writing  tests
 - **Spring Data JPA** - Easy database interactions
-- **H2** - Memory database for development purposes
 - **Spring Boot Rest** - REST API
-- **MySQL drivers** - Production database
+
+
+### Other
+
 - **Bootstrap** - CSS Framework for styling
-- **jQuery** - JavaScript library for functionalities
 - **JSTL** - JSP Standard Tag Library for working with JSPs
+- **Apache Commons** - Working with files
+- **MySQL drivers** - Production database
+- **H2** - Memory database for development purposes
 
 
 ## Dataflow
@@ -98,7 +100,7 @@ Frontend shall be done after the backend is ready.
 
 ## General project & coding -tasks
 
-These are the project tasks, classes and features that I came up when planning this project. 
+These are the project tasks, classes and features that I came up when planning this project.
 
 ### Trello
 
@@ -109,17 +111,9 @@ These are the project tasks, classes and features that I came up when planning t
 ![tasks_3](documentation_images/tasks_3.png)
 
 
-## Exit criteria for coding tasks
-
-- Task must reach its goal before testing
-- If applicable, unit tests must be done for all methods linked to the task
-- Also Negative scenarios must be tested if applicable
-- All tests must pass
-- Code must be refactored
-
-
 ## Project timetable
 
 ![project_timetable](documentation_images/project_timetable.png)
+
 
 
