@@ -20,7 +20,7 @@ import java.util.List;
 @SessionAttributes("name")
 public class ProjectControllerJpa {
 
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     private final StorageService storageService;
 
