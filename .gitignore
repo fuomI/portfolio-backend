@@ -29,7 +29,4 @@ src/main/java/fi/jonij/portfoliobackend/security/Credentials.java
 target/
 src/main/resources/static/upload
 
-### Tests in prod ###
-src/test
-
 
