@@ -2,7 +2,6 @@ package fi.jonij.portfoliobackend.project;
 
 import fi.jonij.portfoliobackend.storage.StorageException;
 import fi.jonij.portfoliobackend.storage.StorageService;
-import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -116,6 +116,8 @@ public class ProjectControllerJpa {
                 System.out.println("File upload failed: " + e.getMessage() + "\n" +
                                     "Setting image to 'default.png'");
             }
+            // File already in storage, update projects projectImageFilename
+            project.setProjectImageFilename(file.getOriginalFilename());
         }
 
         projectRepository.save(project);
