@@ -17,4 +17,8 @@ public class S3Client {
                 .withRegion(Regions.EU_NORTH_1)
                 .build();
     }
+
+    public AmazonS3 getS3client() {
+        return s3client;
+    }
 }
