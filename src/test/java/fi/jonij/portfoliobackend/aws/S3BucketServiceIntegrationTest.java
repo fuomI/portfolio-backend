@@ -1,6 +1,7 @@
 package fi.jonij.portfoliobackend.aws;
 
-import org.junit.jupiter.api.Test;
+import com.amazonaws.services.s3.AmazonS3;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,6 +10,10 @@ class S3BucketServiceIntegrationTest {
 
     @Autowired
     S3BucketService s3BucketService;
-    
 
+    @BeforeAll
+    public void getS3Client() {
+        AmazonS3 s3Client = s3BucketService.getS3client();
+    }
+    
 }
