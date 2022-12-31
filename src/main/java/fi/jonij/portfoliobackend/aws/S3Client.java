@@ -10,7 +10,7 @@ public class S3Client {
     private final AmazonS3 s3client;
     private final AmazonCredentials credentials = new AmazonCredentials();
 
-    protected S3Client(AmazonS3 s3client) {
+    protected S3Client() {
         this.s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials.getCredentials()))
