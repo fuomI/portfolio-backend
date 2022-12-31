@@ -17,9 +17,7 @@ public class S3BucketService {
         this.buckets = s3client.listBuckets();
     }
 
-    public void printBuckets() {
-        for(Bucket bucket : buckets) {
-            System.out.println(bucket.getName());
-        }
+    public List<Bucket> getBuckets() {
+        return buckets;
     }
 }
