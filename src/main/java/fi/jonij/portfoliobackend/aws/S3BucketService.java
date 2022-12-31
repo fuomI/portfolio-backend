@@ -20,7 +20,7 @@ public class S3BucketService {
     public AmazonS3 getS3client() {
         return s3client;
     }
-    
+
     public List<Bucket> getBuckets() {
         return buckets;
     }
