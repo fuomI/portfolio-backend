@@ -17,6 +17,10 @@ public class S3BucketService {
         this.buckets = s3client.listBuckets();
     }
 
+    public AmazonS3 getS3client() {
+        return s3client;
+    }
+    
     public List<Bucket> getBuckets() {
         return buckets;
     }
