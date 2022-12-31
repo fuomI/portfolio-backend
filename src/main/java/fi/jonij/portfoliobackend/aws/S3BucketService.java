@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.aws;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +9,17 @@ import java.util.List;
 @Service
 public class S3BucketService {
 
-    private final S3Client s3client;
+    private final AmazonS3 s3client;
     private List<Bucket> buckets;
 
     public S3BucketService() {
-        this.s3client = new S3Client();
+        this.s3client = new S3Client().getS3client();
+        this.buckets = s3client.listBuckets();
     }
 
-
+    public void printBuckets() {
+        for(Bucket bucket : buckets) {
+            System.out.println(bucket.getName());
+        }
+    }
 }
