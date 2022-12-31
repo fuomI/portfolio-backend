@@ -26,6 +26,7 @@ src/main/resources/application-prod.properties
 
 ### other ###
 src/main/java/fi/jonij/portfoliobackend/security/Credentials.java
+src/main/java/fi/jonij/portfoliobackend/aws/AmazonCredentials.java
 target/
 src/main/resources/static/upload
 
