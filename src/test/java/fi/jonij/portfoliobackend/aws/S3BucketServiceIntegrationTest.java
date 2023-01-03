@@ -37,7 +37,7 @@ class S3BucketServiceIntegrationTest {
             fail();
         }
     }
-    
+
     @Test
     public void listFiles_successfulScenario() {
         s3BucketService.listFiles("jonij-portfolio-backend");
