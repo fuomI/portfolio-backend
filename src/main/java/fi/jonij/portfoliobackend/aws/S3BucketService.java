@@ -2,6 +2,8 @@ package fi.jonij.portfoliobackend.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import fi.jonij.portfoliobackend.storage.StorageException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,6 +62,7 @@ public class S3BucketService {
             }
         }
     }
+
     public void uploadProjectImage(String bucketName, File file) {
         try {
             if (file == null) {
@@ -76,5 +79,11 @@ public class S3BucketService {
             throw new StorageException("Failed to store file.", e);
         }
     }
-    
+
+    public void listFiles(String bucketName) {
+        ObjectListing objectListing = s3client.listObjects(bucketName);
+        for(S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+            System.out.println(objectSummary.getKey());
+        }
+    }
 }
