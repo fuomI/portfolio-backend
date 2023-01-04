@@ -63,7 +63,11 @@ public class ProjectControllerJpa {
         // If no file to upload is chosen AmazonS3Exception is thrown
         try {
             s3BucketService.uploadProjectImage(file);
-            newProject.setProjectImageFilename(file.getOriginalFilename());
+            if(file.getOriginalFilename() != null) {
+                newProject.setProjectImageFilename(file.getOriginalFilename());
+            } else {
+                newProject.setProjectImageFilename("default.png");
+            }
 
         } catch (AmazonS3Exception e) {
             newProject.setProjectImageFilename("default.png");
@@ -107,16 +111,12 @@ public class ProjectControllerJpa {
         // If no file to upload is chosen AmazonS3Exception is thrown
         try {
             s3BucketService.uploadProjectImage(file);
-            project.setProjectImageFilename(file.getOriginalFilename());
+            if(file.getOriginalFilename() != null) {
+                project.setProjectImageFilename(file.getOriginalFilename());
+            }
 
         } catch (AmazonS3Exception e) {
-            if(project.getProjectImageFilename().equals("")) {
-                project.setProjectImageFilename("default.png");
-                System.out.println("File upload failed: " + e.getMessage() + "\n" +
-                                    "Setting image to 'default.png'");
-            }
-            // File already in storage, update projects projectImageFilename
-            project.setProjectImageFilename(file.getOriginalFilename());
+            System.out.println(e.getMessage());
         }
 
         projectRepository.save(project);
