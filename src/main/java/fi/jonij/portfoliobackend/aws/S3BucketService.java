@@ -33,6 +33,10 @@ public class S3BucketService {
         return buckets;
     }
 
+    public AmazonS3 getS3Client() {
+        return s3Client;
+    }
+
     public void uploadProjectImage(MultipartFile multipartFile) {
         File file = null;
         try {
@@ -89,6 +93,10 @@ public class S3BucketService {
     public Resource getProjectImage(String projectImageFilename) {
         String key = imageDirectory + projectImageFilename;
         S3Object s3Object = s3Client.getObject(bucketName, key);
+        if(s3Object == null) {
+            throw new StorageException("S3 Object with filename not found.");
+        }
+
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
 
         return new InputStreamResource(inputStream);
