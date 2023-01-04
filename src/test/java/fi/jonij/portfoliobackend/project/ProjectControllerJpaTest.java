@@ -2,7 +2,6 @@ package fi.jonij.portfoliobackend.project;
 
 import fi.jonij.portfoliobackend.aws.S3BucketService;
 import fi.jonij.portfoliobackend.storage.StorageException;
-import fi.jonij.portfoliobackend.storage.StorageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -125,7 +124,7 @@ class ProjectControllerJpaTest {
 
         // Set up mock behavior for the storage service
         when(file.getOriginalFilename()).thenReturn("testproject.jpg");
-        doNothing().when(storageService).store(file);
+        doNothing().when(s3BucketService).uploadProjectImage(file);
 
         // Create a BindingResult instance and invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -134,7 +133,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(newProject);
-        verify(storageService).store(file);
+        verify(s3BucketService).uploadProjectImage(file);
     }
 
     @Test
@@ -151,7 +150,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("project", viewName);
         verify(projectRepository, never()).save(newProject);
-        verify(storageService, never()).store(file);
+        verify(s3BucketService, never()).uploadProjectImage(file);
     }
 
     @Test
@@ -171,7 +170,7 @@ class ProjectControllerJpaTest {
         when(projectRepository.save(newProject)).thenReturn(newProject);
 
         // Set up mock behavior for the storage service
-        doThrow(new StorageException("File is null")).when(storageService).store(file);
+        doThrow(new StorageException("File is null")).when(s3BucketService).uploadProjectImage(file);
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -180,7 +179,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(newProject);
-        verify(storageService).store(file);
+        verify(s3BucketService).uploadProjectImage(file);
         assertEquals("default.png", newProject.getProjectImageFilename());
     }
 
@@ -241,7 +240,7 @@ class ProjectControllerJpaTest {
 
         // Set up mock behavior for the storage service
         when(file.getOriginalFilename()).thenReturn("testproject.jpg");
-        doNothing().when(storageService).store(file);
+        doNothing().when(s3BucketService).uploadProjectImage(file);
 
         // Create a BindingResult instance and invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -250,7 +249,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(updatedProject);
-        verify(storageService).store(file);
+        verify(s3BucketService).uploadProjectImage(file);
     }
 
     @Test
@@ -267,7 +266,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("project", viewName);
         verify(projectRepository, never()).save(updatedProject);
-        verify(storageService, never()).store(file);
+        verify(s3BucketService, never()).uploadProjectImage(file);
     }
 
     @Test
@@ -287,7 +286,7 @@ class ProjectControllerJpaTest {
         when(projectRepository.save(updatedProject)).thenReturn(updatedProject);
 
         // Set up mock behavior for the storage service
-        doThrow(new StorageException("File is null")).when(storageService).store(file);
+        doThrow(new StorageException("File is null")).when(s3BucketService).uploadProjectImage(file);
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -296,7 +295,7 @@ class ProjectControllerJpaTest {
         // Assert the expected behavior
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(updatedProject);
-        verify(storageService).store(file);
+        verify(s3BucketService).uploadProjectImage(file);
         assertEquals("default.png", updatedProject.getProjectImageFilename());
     }
 
