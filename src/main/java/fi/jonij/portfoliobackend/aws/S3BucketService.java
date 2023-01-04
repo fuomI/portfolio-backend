@@ -1,10 +1,10 @@
 package fi.jonij.portfoliobackend.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.s3.model.*;
 import fi.jonij.portfoliobackend.storage.StorageException;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,23 +18,22 @@ import java.util.Objects;
 @Service
 public class S3BucketService {
 
-    private final AmazonS3 s3client;
+    private final AmazonS3 s3Client;
     private final List<Bucket> buckets;
 
-    public S3BucketService() {
-        this.s3client = new S3Client().getS3client();
-        this.buckets = s3client.listBuckets();
-    }
+    private final String bucketName = "jonij-portfolio-backend";
+    private final String imageDirectory = "project-images/";
 
-    public AmazonS3 getS3client() {
-        return s3client;
+    public S3BucketService() {
+        this.s3Client = new S3Client().getS3client();
+        this.buckets = s3Client.listBuckets();
     }
 
     public List<Bucket> getBuckets() {
         return buckets;
     }
 
-    public void uploadProjectImage(String bucketName, MultipartFile multipartFile) {
+    public void uploadProjectImage(MultipartFile multipartFile) {
         File file = null;
         try {
             if (multipartFile.isEmpty()) {
@@ -48,7 +47,7 @@ public class S3BucketService {
                 outputStream.write(multipartFile.getBytes());
             }
 
-            s3client.putObject(
+            s3Client.putObject(
                     bucketName,
                     "project-images/" + file.getName(),
                     file
@@ -63,13 +62,13 @@ public class S3BucketService {
         }
     }
 
-    public void uploadProjectImage(String bucketName, File file) {
+    public void uploadProjectImage(File file) {
         try {
             if (file == null) {
                 throw new StorageException("Failed to store empty file.");
             }
 
-            s3client.putObject(
+            s3Client.putObject(
                     bucketName,
                     "project-images/" + file.getName(),
                     file
@@ -80,10 +79,19 @@ public class S3BucketService {
         }
     }
 
-    public void listFiles(String bucketName) {
-        ObjectListing objectListing = s3client.listObjects(bucketName);
+    public void listFiles() {
+        ObjectListing objectListing = s3Client.listObjects(bucketName);
         for(S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
             System.out.println(objectSummary.getKey());
         }
     }
+
+    public Resource getProjectImage(String projectImageFilename) {
+        String key = imageDirectory + projectImageFilename;
+        S3Object s3Object = s3Client.getObject(bucketName, key);
+        S3ObjectInputStream inputStream = s3Object.getObjectContent();
+
+        return new InputStreamResource(inputStream);
+    }
+
 }
