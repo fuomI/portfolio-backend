@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.aws.S3BucketService;
 import fi.jonij.portfoliobackend.storage.StorageException;
 import fi.jonij.portfoliobackend.storage.StorageService;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class ProjectControllerJpaTest {
     @Mock
     private ProjectRepository projectRepository;
     @Mock
-    private StorageService storageService;
+    private S3BucketService s3BucketService;
     @Mock
     private SecurityContext securityContext;
     @Mock
@@ -269,34 +270,34 @@ class ProjectControllerJpaTest {
         verify(storageService, never()).store(file);
     }
 
-//    @Test
-//    public void updateProject_fileOriginalFilenameIsNullScenario() {
-//        // Set up the security context
-//        SecurityContextHolder.setContext(securityContext);
-//
-//        // Set up the authentication object
-//        when(authentication.getName()).thenReturn("testuser");
-//        when(securityContext.getAuthentication()).thenReturn(authentication);
-//
-//        // Set up mock behavior for the project repository
-//        Project updatedProject = new Project("testuser", "testProject", "Coding",
-//                "This is a test project", LocalDate.now(), "http://github.com",
-//                "https://railway.app/project", "");
-//
-//        when(projectRepository.save(updatedProject)).thenReturn(updatedProject);
-//
-//        // Set up mock behavior for the storage service
-//        doThrow(new StorageException("File is null")).when(storageService).store(file);
-//
-//        // Invoke the controller method
-//        when(bindingResult.hasErrors()).thenReturn(false);
-//        String viewName = projectControllerJpa.updateProject(file, updatedProject, bindingResult);
-//
-//        // Assert the expected behavior
-//        assertEquals("redirect:list-projects", viewName);
-//        verify(projectRepository).save(updatedProject);
-//        verify(storageService).store(file);
-//        assertEquals("default.png", updatedProject.getProjectImageFilename());
-//    }
+    @Test
+    public void updateProject_fileOriginalFilenameIsNullScenario() {
+        // Set up the security context
+        SecurityContextHolder.setContext(securityContext);
+
+        // Set up the authentication object
+        when(authentication.getName()).thenReturn("testuser");
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        // Set up mock behavior for the project repository
+        Project updatedProject = new Project("testuser", "testProject", "Coding",
+                "This is a test project", LocalDate.now(), "http://github.com",
+                "https://railway.app/project", "");
+
+        when(projectRepository.save(updatedProject)).thenReturn(updatedProject);
+
+        // Set up mock behavior for the storage service
+        doThrow(new StorageException("File is null")).when(storageService).store(file);
+
+        // Invoke the controller method
+        when(bindingResult.hasErrors()).thenReturn(false);
+        String viewName = projectControllerJpa.updateProject(file, updatedProject, bindingResult);
+
+        // Assert the expected behavior
+        assertEquals("redirect:list-projects", viewName);
+        verify(projectRepository).save(updatedProject);
+        verify(storageService).store(file);
+        assertEquals("default.png", updatedProject.getProjectImageFilename());
+    }
 
 }
