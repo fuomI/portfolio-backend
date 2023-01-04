@@ -2,7 +2,6 @@ package fi.jonij.portfoliobackend.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import fi.jonij.portfoliobackend.storage.StorageException;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class S3BucketService {
         File file = null;
         try {
             if (multipartFile.isEmpty()) {
-                throw new StorageException("Failed to store empty file.");
+                throw new AmazonS3Exception("Failed to store empty file.");
             }
 
             // s3client accepts File not MultipartFile
@@ -58,7 +57,7 @@ public class S3BucketService {
             );
 
         } catch (IOException e) {
-            throw new StorageException("Failed to store file.", e);
+            throw new AmazonS3Exception("Failed to store file.", e);
         } finally {
             if (file != null) {
                 file.delete();
@@ -69,7 +68,7 @@ public class S3BucketService {
     public void uploadProjectImage(File file) {
         try {
             if (file == null) {
-                throw new StorageException("Failed to store empty file.");
+                throw new AmazonS3Exception("Failed to store empty file.");
             }
 
             s3Client.putObject(
@@ -79,7 +78,7 @@ public class S3BucketService {
             );
 
         } catch (Exception e) {
-            throw new StorageException("Failed to store file.", e);
+            throw new AmazonS3Exception("Failed to store file.", e);
         }
     }
 
@@ -94,7 +93,7 @@ public class S3BucketService {
         String key = imageDirectory + projectImageFilename;
         S3Object s3Object = s3Client.getObject(bucketName, key);
         if(s3Object == null) {
-            throw new StorageException("S3 Object with filename not found.");
+            throw new AmazonS3Exception("S3 Object with filename not found.");
         }
 
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
