@@ -1,7 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
-import fi.jonij.portfoliobackend.storage.StorageException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -60,12 +60,12 @@ public class ProjectControllerJpa {
         String username = getLoggedInUserName();
         newProject.setUsername(username);
 
-        // If no file to upload is chosen StorageException is thrown -> default image is used
+        // If no file to upload is chosen AmazonS3Exception is thrown
         try {
             s3BucketService.uploadProjectImage(file);
             newProject.setProjectImageFilename(file.getOriginalFilename());
 
-        } catch (StorageException e) {
+        } catch (AmazonS3Exception e) {
             newProject.setProjectImageFilename("default.png");
             System.out.println("File upload failed: " + e.getMessage() + "\n" +
                     "Setting image to 'default.png'");
@@ -104,12 +104,12 @@ public class ProjectControllerJpa {
         String username = getLoggedInUserName();
         project.setUsername(username);
 
-        // If no file to upload is chosen StorageException is thrown -> default image is used
+        // If no file to upload is chosen AmazonS3Exception is thrown
         try {
             s3BucketService.uploadProjectImage(file);
             project.setProjectImageFilename(file.getOriginalFilename());
 
-        } catch (StorageException e) {
+        } catch (AmazonS3Exception e) {
             if(project.getProjectImageFilename().equals("")) {
                 project.setProjectImageFilename("default.png");
                 System.out.println("File upload failed: " + e.getMessage() + "\n" +
