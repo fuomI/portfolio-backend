@@ -1,7 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.aws.S3BucketService;
 import fi.jonij.portfoliobackend.storage.StorageException;
-import fi.jonij.portfoliobackend.storage.StorageService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,11 @@ import java.util.List;
 public class ProjectControllerJpa {
 
     private final ProjectRepository projectRepository;
+    private final S3BucketService s3BucketService;
 
-    private final StorageService storageService;
-
-    public ProjectControllerJpa(ProjectRepository projectRepository, StorageService storageService) {
+    public ProjectControllerJpa(ProjectRepository projectRepository, S3BucketService s3BucketService) {
         this.projectRepository = projectRepository;
-        this.storageService = storageService;
+        this.s3BucketService = s3BucketService;
     }
 
     // Route for listing all projects of the logged user
@@ -63,7 +62,7 @@ public class ProjectControllerJpa {
 
         // If no file to upload is chosen StorageException is thrown -> default image is used
         try {
-            storageService.store(file);
+            s3BucketService.uploadProjectImage(file);
             newProject.setProjectImageFilename(file.getOriginalFilename());
 
         } catch (StorageException e) {
@@ -107,7 +106,7 @@ public class ProjectControllerJpa {
 
         // If no file to upload is chosen StorageException is thrown -> default image is used
         try {
-            storageService.store(file);
+            s3BucketService.uploadProjectImage(file);
             project.setProjectImageFilename(file.getOriginalFilename());
 
         } catch (StorageException e) {
