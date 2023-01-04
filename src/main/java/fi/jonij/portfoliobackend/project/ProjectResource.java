@@ -1,7 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
-import fi.jonij.portfoliobackend.storage.StorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,7 +55,7 @@ public class ProjectResource {
         try {
             resource = s3BucketService.getProjectImage(projectImageFilename);
 
-        } catch (StorageException e) {
+        } catch (AmazonS3Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
