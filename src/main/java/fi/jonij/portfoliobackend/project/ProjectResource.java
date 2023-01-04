@@ -1,7 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
+import fi.jonij.portfoliobackend.aws.S3BucketService;
 import fi.jonij.portfoliobackend.storage.StorageException;
-import fi.jonij.portfoliobackend.storage.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,12 +18,11 @@ import java.util.Optional;
 public class ProjectResource {
 
     private final ProjectRepository projectRepository;
+    private final S3BucketService s3BucketService;
 
-    private final StorageService storageService;
-
-    public ProjectResource(ProjectRepository projectRepository, StorageService storageService) {
+    public ProjectResource(ProjectRepository projectRepository, S3BucketService s3BucketService) {
         this.projectRepository = projectRepository;
-        this.storageService = storageService;
+        this.s3BucketService = s3BucketService;
     }
 
     //
@@ -54,7 +53,7 @@ public class ProjectResource {
         Resource resource;
 
         try {
-            resource = storageService.loadAsResource(projectImageFilename);
+            resource = s3BucketService.getProjectImage(projectImageFilename);
 
         } catch (StorageException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
