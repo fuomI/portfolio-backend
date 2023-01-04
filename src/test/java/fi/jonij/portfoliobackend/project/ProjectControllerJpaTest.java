@@ -1,7 +1,7 @@
 package fi.jonij.portfoliobackend.project;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
-import fi.jonij.portfoliobackend.storage.StorageException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -170,7 +170,7 @@ class ProjectControllerJpaTest {
         when(projectRepository.save(newProject)).thenReturn(newProject);
 
         // Set up mock behavior for the storage service
-        doThrow(new StorageException("File is null")).when(s3BucketService).uploadProjectImage(file);
+        doThrow(new AmazonS3Exception("File is null")).when(s3BucketService).uploadProjectImage(file);
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -286,7 +286,7 @@ class ProjectControllerJpaTest {
         when(projectRepository.save(updatedProject)).thenReturn(updatedProject);
 
         // Set up mock behavior for the storage service
-        doThrow(new StorageException("File is null")).when(s3BucketService).uploadProjectImage(file);
+        doThrow(new AmazonS3Exception("File is null")).when(s3BucketService).uploadProjectImage(file);
 
         // Invoke the controller method
         when(bindingResult.hasErrors()).thenReturn(false);
@@ -296,7 +296,7 @@ class ProjectControllerJpaTest {
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(updatedProject);
         verify(s3BucketService).uploadProjectImage(file);
-        assertEquals("default.png", updatedProject.getProjectImageFilename());
+        assertEquals("", updatedProject.getProjectImageFilename());
     }
 
 }
