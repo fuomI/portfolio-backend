@@ -71,6 +71,8 @@ class S3BucketServiceIntegrationTest {
 
     @Test
     public void getProjectImage_negativeScenario() {
+        // There is no project image with filename "car.png"
+
         try {
             Resource actual = s3BucketService.getProjectImage("car.png");
             fail();
