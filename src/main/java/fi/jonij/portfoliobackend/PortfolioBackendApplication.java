@@ -1,13 +1,13 @@
 package fi.jonij.portfoliobackend;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-// Commented code needed when deployed in web container
-
 @SpringBootApplication
+@EnableEncryptableProperties
 public class PortfolioBackendApplication extends SpringBootServletInitializer {
 
 	@Override
