@@ -13,7 +13,6 @@ Frontend shall be done after the backend is ready.
 
 
 - **release**
-  - H2 database is switched to MySQL database.
   - Last check that everything is as it should for production phase.
 
 
@@ -85,6 +84,7 @@ Frontend shall be done after the backend is ready.
 - **Spring Boot Rest** - REST API
 
 
+
 ### Other
 
 - **Bootstrap** - CSS Framework for styling
@@ -92,6 +92,8 @@ Frontend shall be done after the backend is ready.
 - **Apache Commons** - Working with files
 - **MySQL drivers** - Production database
 - **H2** - Memory database for development purposes
+- **Jasypt** - Encrypting properties like datasource URL
+- **Amazon S3** - Remote file storage
 
 
 ## Dataflow
@@ -111,9 +113,41 @@ These are the project tasks, classes and features that I came up when planning t
 ![tasks_3](documentation_images/tasks_3.png)
 
 
-## Project timetable
+## Initial Project timetable - DEPRECATED
 
 ![project_timetable](documentation_images/project_timetable.png)
 
+## Reasons for postponing release
+
+### SpringBoot 3 & JSP
+
+I ran into problems when I tried running my WAR using SpringBoot 3.0.
+I tried debugging for a couple of days but in vain.
+I even started a thread in [stack overflow](https://stackoverflow.com/questions/74913190/spring-boot-apps-jar-not-working-issue-with-tomcat-embed-jasper) when nothing seemed to be working.
+
+**&rarr; Solution was to downgrade SpringBoot to version 2.7.6.**
+
+### File storage and WAR
+
+I initially had storage system that stored files into the applications own filesystem.
+However, this feature broke when I tried it with the executable WAR.
+Application seemed to be working otherwise.
+
+**&rarr; My solution was to change to remote storage, S3 from Amazon to be specific.**
+
+### Creating Docker image and deploying (WORK IN PROGRESS 10.1.2023)
+
+I have successfully created the docker image and my application runs great locally.
+However, if I wanted to use same Dockerfile when deploying to railway.app
+I would probably need to upload my WAR to this github repository.
+The WAR is 300 mb so this isn't allowed.
+
+If I want to create image different way I probably need to upload everything to
+github including sensitive data that has been .gitignored so far. The data would have
+been vulnerable in the WAR also so fix is needed.
+
+**&rarr; Solution which I'm going to try is to encrypt datasource URL and then store
+sensitive data in the database, possibly encrypted. After that I try to create image by 
+adding necessary steps to the Dockerfile.**
 
 
