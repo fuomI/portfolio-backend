@@ -2,6 +2,7 @@ package fi.jonij.portfoliobackend.project;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
+import fi.jonij.portfoliobackend.user.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import fi.jonij.portfoliobackend.user.User;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,10 +23,13 @@ import java.util.List;
 public class ProjectControllerJpa {
 
     private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
     private final S3BucketService s3BucketService;
 
-    public ProjectControllerJpa(ProjectRepository projectRepository, S3BucketService s3BucketService) {
+    public ProjectControllerJpa(ProjectRepository projectRepository, UserRepository userRepository,
+                                S3BucketService s3BucketService) {
         this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
         this.s3BucketService = s3BucketService;
     }
 
@@ -75,6 +80,8 @@ public class ProjectControllerJpa {
                     "Setting image to 'default.png'");
         }
 
+        User user = userRepository.findByUsername(username).get(0);
+        newProject.assignUser(user);
         projectRepository.save(newProject);
 
         return "redirect:list-projects";
@@ -119,6 +126,8 @@ public class ProjectControllerJpa {
             System.out.println(e.getMessage());
         }
 
+        User user = userRepository.findByUsername(username).get(0);
+        project.assignUser(user);
         projectRepository.save(project);
 
         return "redirect:list-projects";
