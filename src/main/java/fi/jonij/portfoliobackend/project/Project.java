@@ -1,5 +1,6 @@
 package fi.jonij.portfoliobackend.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fi.jonij.portfoliobackend.user.User;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Project {
     private String projectDescription;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     public Project() {
