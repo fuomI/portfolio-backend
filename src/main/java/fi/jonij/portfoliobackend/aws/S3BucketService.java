@@ -1,7 +1,13 @@
 package fi.jonij.portfoliobackend.aws;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import fi.jonij.portfoliobackend.user.UserRepository;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -17,14 +23,29 @@ import java.util.Objects;
 @Service
 public class S3BucketService {
 
+    private final UserRepository userRepository;
+    private final AWSCredentials credentials;
     private final AmazonS3 s3Client;
     private final List<Bucket> buckets;
 
     private final String bucketName = "jonij-portfolio-backend";
     private final String imageDirectory = "project-images/";
 
-    public S3BucketService() {
-        this.s3Client = new S3Client().getS3client();
+    public S3BucketService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+
+        // All users have same AWSCredentials, so we can use the credentials of the first entry.
+        this.credentials = new BasicAWSCredentials(
+                userRepository.findAll().get(0).getS3AccessKey(),
+                userRepository.findAll().get(0).getS3SecretKey()
+        );
+
+        this.s3Client = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(Regions.EU_NORTH_1)
+                .build();
+
         this.buckets = s3Client.listBuckets();
     }
 
@@ -52,7 +73,7 @@ public class S3BucketService {
 
             s3Client.putObject(
                     bucketName,
-                    "project-images/" + file.getName(),
+                    imageDirectory + file.getName(),
                     file
             );
 
