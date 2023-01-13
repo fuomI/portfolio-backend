@@ -2,6 +2,7 @@ package fi.jonij.portfoliobackend.project;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
+import fi.jonij.portfoliobackend.user.User;
 import fi.jonij.portfoliobackend.user.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import fi.jonij.portfoliobackend.user.User;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @SessionAttributes("name")
@@ -80,8 +81,15 @@ public class ProjectControllerJpa {
                     "Setting image to 'default.png'");
         }
 
-        User user = userRepository.findByUsername(username).get(0);
-        newProject.assignUser(user);
+        Optional<User> userOptional = userRepository.findByUsername(username).
+                stream().
+                findFirst();
+        if(userOptional.isPresent()) {
+            newProject.assignUser(userOptional.get());
+        } else {
+            System.out.println("Username: " + username + " not found.");
+        }
+
         projectRepository.save(newProject);
 
         return "redirect:list-projects";
@@ -126,8 +134,15 @@ public class ProjectControllerJpa {
             System.out.println(e.getMessage());
         }
 
-        User user = userRepository.findByUsername(username).get(0);
-        project.assignUser(user);
+        Optional<User> userOptional = userRepository.findByUsername(username).
+                stream().
+                findFirst();
+        if(userOptional.isPresent()) {
+            project.assignUser(userOptional.get());
+        } else {
+            System.out.println("Username: " + username + " not found.");
+        }
+
         projectRepository.save(project);
 
         return "redirect:list-projects";
