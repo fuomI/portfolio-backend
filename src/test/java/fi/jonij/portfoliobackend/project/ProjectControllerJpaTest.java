@@ -306,6 +306,14 @@ class ProjectControllerJpaTest {
                 "This is a test project", LocalDate.now(), "http://github.com",
                 "https://railway.app/project", "");
 
+        User user = new User();
+        user.setId(1);
+        user.setUsername("testuser");
+        List<User> users = new ArrayList<>();
+        users.add(user);
+
+        when(userRepository.findByUsername("testuser")).thenReturn(users);
+
         when(projectRepository.save(updatedProject)).thenReturn(updatedProject);
 
         // Set up mock behavior for the storage service
@@ -320,6 +328,7 @@ class ProjectControllerJpaTest {
         verify(projectRepository).save(updatedProject);
         verify(s3BucketService).uploadProjectImage(file);
         assertEquals("", updatedProject.getProjectImageFilename());
+        assertEquals(user, updatedProject.getUser());
     }
 
 }
