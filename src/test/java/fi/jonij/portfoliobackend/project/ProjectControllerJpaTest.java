@@ -2,6 +2,8 @@ package fi.jonij.portfoliobackend.project;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import fi.jonij.portfoliobackend.aws.S3BucketService;
+import fi.jonij.portfoliobackend.user.User;
+import fi.jonij.portfoliobackend.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,8 @@ class ProjectControllerJpaTest {
 
     @Mock
     private ProjectRepository projectRepository;
+    @Mock
+    private UserRepository userRepository;
     @Mock
     private S3BucketService s3BucketService;
     @Mock
@@ -120,6 +125,14 @@ class ProjectControllerJpaTest {
                 "This is a test project", LocalDate.now(), "http://github.com",
                 "https://railway.app/project", "testproject.jpg");
 
+        User user = new User();
+        user.setId(1);
+        user.setUsername("testuser");
+        List<User> users = new ArrayList<>();
+        users.add(user);
+
+        when(userRepository.findByUsername("testuser")).thenReturn(users);
+
         when(projectRepository.save(newProject)).thenReturn(newProject);
 
         // Set up mock behavior for the storage service
@@ -134,6 +147,7 @@ class ProjectControllerJpaTest {
         assertEquals("redirect:list-projects", viewName);
         verify(projectRepository).save(newProject);
         verify(s3BucketService).uploadProjectImage(file);
+        assertEquals(user, newProject.getUser());
     }
 
     @Test
