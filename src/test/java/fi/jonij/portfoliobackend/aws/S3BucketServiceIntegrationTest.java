@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class S3BucketServiceIntegrationTest {
 
     @Autowired
-    private S3BucketService s3BucketService = new S3BucketService();
+    private S3BucketService s3BucketService;
 
     @Test
     public void getBuckets_successfulScenario() {
