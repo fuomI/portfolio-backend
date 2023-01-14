@@ -21,7 +21,7 @@ class S3BucketServiceIntegrationTest {
     public void getBuckets_successfulScenario() {
         String expected = "jonij-portfolio-backend";
         try {
-            String actual = s3BucketService.getBuckets().get(0).getName();
+            String actual = s3BucketService.getBuckets().get(1).getName();
             assertEquals(expected, actual);
 
         } catch (AmazonS3Exception e) {
