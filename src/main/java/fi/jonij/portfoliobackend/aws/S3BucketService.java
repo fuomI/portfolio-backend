@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,7 +25,6 @@ public class S3BucketService {
     private final UserRepository userRepository;
     private final AWSCredentials credentials;
     private final AmazonS3 s3Client;
-    private final List<Bucket> buckets;
 
     private final String bucketName = "jonij-portfolio-backend";
     private final String imageDirectory = "project-images/";
@@ -45,12 +43,6 @@ public class S3BucketService {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.EU_NORTH_1)
                 .build();
-
-        this.buckets = s3Client.listBuckets();
-    }
-
-    public List<Bucket> getBuckets() {
-        return buckets;
     }
 
     public AmazonS3 getS3Client() {
@@ -121,5 +113,4 @@ public class S3BucketService {
 
         return new InputStreamResource(inputStream);
     }
-
 }
