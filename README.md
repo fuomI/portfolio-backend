@@ -150,4 +150,7 @@ been vulnerable in the WAR also so fix is needed.
 sensitive data in the database, possibly encrypted. After that I try to create image by 
 adding necessary steps to the Dockerfile.**
 
+## Release 1.2 15.1.2023
+
+### App is now deployed inside AWS EC2 virtual machine inside a docker container [here.](http://ec2-16-170-141-77.eu-north-1.compute.amazonaws.com:6565) However, it is protected by username and password. It is also quite slow at the moment, so I'm probably going to allocate more hardware resources to it.
 
