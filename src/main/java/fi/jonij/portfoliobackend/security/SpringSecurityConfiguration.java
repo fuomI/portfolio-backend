@@ -19,7 +19,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SpringSecurityConfiguration {
 
-    private final Credentials credentials = new Credentials();
+    private final UserCredentialsService userCredentialsService;
+
+    public SpringSecurityConfiguration(UserCredentialsService userCredentialsService) {
+        this.userCredentialsService = userCredentialsService;
+    }
 
     // Iterates through credentialsMap and adds new users based on credentials
     @Bean
@@ -27,7 +31,7 @@ public class SpringSecurityConfiguration {
         InMemoryUserDetailsManager inMemoryUserDetailsManager =
                 new InMemoryUserDetailsManager();
 
-        Map<String, String> credentialsMap = credentials.getCredentials();
+        Map<String, String> credentialsMap = userCredentialsService.getCredentials();
         for (Map.Entry<String, String> entry : credentialsMap.entrySet()) {
             UserDetails userDetails = createNewUser(entry.getKey(), entry.getValue());
             inMemoryUserDetailsManager.createUser(userDetails);

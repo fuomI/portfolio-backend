@@ -26,8 +26,8 @@ public class ProjectResourceIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    public static final String ALL_PROJECTS_URL = "http://localhost:8080/rest/projects";
-    public static final String IMAGES_URL = "http://localhost:8080/rest/images";
+    public static final String ALL_PROJECTS_URL = "http://localhost:5000/rest/projects";
+    public static final String IMAGES_URL = "http://localhost:5000/rest/images";
 
     @Test
     public void retrieveAllProjects_successfulScenario() throws JSONException {

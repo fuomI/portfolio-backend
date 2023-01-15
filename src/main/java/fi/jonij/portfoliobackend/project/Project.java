@@ -1,8 +1,9 @@
 package fi.jonij.portfoliobackend.project;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import fi.jonij.portfoliobackend.user.User;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -34,6 +35,10 @@ public class Project {
     @Size(min=10, message="Enter at least 10 characters")
     @Size(max=255, message="Maximum allowed characters is 255")
     private String projectDescription;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JsonIgnore
+    private User user;
 
     public Project() {
     }
@@ -123,6 +128,18 @@ public class Project {
         this.projectImageFilename = projectImageFilename;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void assignUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -137,4 +154,6 @@ public class Project {
                 ", projectDescription='" + projectDescription + '\'' +
                 '}';
     }
+
+
 }
