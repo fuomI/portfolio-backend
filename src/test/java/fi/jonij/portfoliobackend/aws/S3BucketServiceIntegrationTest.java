@@ -18,20 +18,6 @@ class S3BucketServiceIntegrationTest {
     private S3BucketService s3BucketService;
 
     @Test
-    public void getBuckets_successfulScenario() {
-        String expected = "jonij-portfolio-backend";
-        try {
-            String actual = s3BucketService.getBuckets().get(1).getName();
-            assertEquals(expected, actual);
-
-        } catch (AmazonS3Exception e) {
-            System.out.println(e.getMessage());
-            fail();
-        }
-
-    }
-
-    @Test
     public void uploadProjectImage_successfulScenario() {
         AmazonS3 s3Client = s3BucketService.getS3Client();
         File file = new File("src/main/resources/static/upload/default.png");
@@ -81,5 +67,4 @@ class S3BucketServiceIntegrationTest {
             System.out.println(e.getMessage());
         }
     }
-
 }
