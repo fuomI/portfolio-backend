@@ -8,4 +8,4 @@ WORKDIR /usr/app
 COPY ./target/portfolio-backend.war ./
 
 # Default command
-CMD ["java", "-jar", "/usr/app/portfolio-backend.war"]
+# CMD ["java", "-jar", "/usr/app/portfolio-backend.war"]
