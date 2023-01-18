@@ -121,8 +121,19 @@ public class ProjectControllerJpa {
     // Route for showing project page with attributes of a specific Project (update)
     @RequestMapping(value="update-project", method = RequestMethod.GET)
     public String showUpdateProjectPage(@RequestParam int id, ModelMap model) {
-        Project project = projectRepository.findById(id).get();
-        model.addAttribute("project", project);
+        try {
+            Optional<Project> projectOptional = projectRepository.findById(id)
+                    .stream()
+                    .findFirst();
+
+            if(projectOptional.isPresent()) {
+                Project project = projectOptional.get();
+                model.addAttribute("project", project);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return "project";
     }
