@@ -98,7 +98,22 @@ public class ProjectControllerJpa {
     // Route for deleting a project by id
     @RequestMapping("delete-project")
     public String deleteProject(@RequestParam int id) {
-        projectRepository.deleteById(id);
+        try {
+            Optional<Project> projectOptional = projectRepository.findById(id)
+                    .stream()
+                    .findFirst();
+
+            if(projectOptional.isPresent()) {
+                Project project = projectOptional.get();
+                User user = project.getUser();
+                List<Project> usersProjects = user.getProjects();
+                usersProjects.remove(project);
+                projectRepository.deleteById(project.getId());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return "redirect:list-projects";
     }
