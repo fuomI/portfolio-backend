@@ -209,16 +209,27 @@ class ProjectControllerJpaTest {
     @Test
     public void deleteProject_basicScenario() {
         // Set up test data
-        Project newProject = new Project("testuser", "testProject", "Coding",
+        Project project = new Project("testuser", "testProject", "Coding",
                 "This is a test project", LocalDate.now(), "http://github.com",
                 "https://railway.app/project", "");
-        newProject.setId(1);
+        project.setId(1);
+
+        User user = new User();
+        user.setId(1);
+        user.setUsername("testuser");
+
+        project.assignUser(user);
+
+        Optional<Project> projectOptional = Optional.of(project);
+
+        when(projectRepository.findById(1).stream().findFirst()).thenReturn(projectOptional);
 
         // Call the deleteProject method and verify the result
         String viewName = projectControllerJpa.deleteProject(1);
         assertEquals("redirect:list-projects", viewName);
 
         // Verify that the deleteById method was called with the correct id parameter
+        verify(projectRepository).findById(1);
         verify(projectRepository).deleteById(1);
     }
 
