@@ -135,7 +135,7 @@ Application seemed to be working otherwise.
 
 **&rarr; My solution was to change to remote storage, S3 from Amazon to be specific.**
 
-### Creating Docker image and deploying (WORK IN PROGRESS 10.1.2023)
+### Creating Docker image and deploying
 
 I have successfully created the docker image and my application runs great locally.
 However, if I wanted to use same Dockerfile when deploying to railway.app
@@ -150,7 +150,23 @@ been vulnerable in the WAR also so fix is needed.
 sensitive data in the database, possibly encrypted. After that I try to create image by 
 adding necessary steps to the Dockerfile.**
 
-## Release 1.2 15.1.2023
+## Release 1.2
 
-### App is now deployed inside AWS EC2 virtual machine inside a docker container [here.](http://ec2-16-170-141-77.eu-north-1.compute.amazonaws.com:6565) However, it is protected by username and password. It is also quite slow at the moment, so I'm probably going to allocate more hardware resources to it.
+#### http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565
+
+App is now deployed inside AWS EC2 virtual machine inside a docker container 
+[here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565) 
+
+However, it is protected by username and password.
+
+#### /rest/projects
+- JSON-formatted project information can be viewed [here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565/rest/projects)
+
+#### /rest/images/default.png
+- Default image for projects can be also viewed [here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565/rest/images/default.png)
+
+## Next steps
+
+- Figuring out how to make it run faster
+- Getting SSL certificate
 
