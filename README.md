@@ -83,17 +83,20 @@ Frontend shall be done after the backend is ready.
 - **Spring Data JPA** - Easy database interactions
 - **Spring Boot Rest** - REST API
 
-
+### Amazon Web Services (AWS)
+- **Amazon S3** - Remote file storage
+- **Amazon RDS** - Relational database service
+- **Amazon EC2** - Virtual machine that runs the container 
 
 ### Other
 
 - **Bootstrap** - CSS Framework for styling
 - **JSTL** - JSP Standard Tag Library for working with JSPs
 - **Apache Commons** - Working with files
-- **MySQL drivers** - Production database
+- **MySQL drivers** - Production database drivers for MySQL connection
 - **H2** - Memory database for development purposes
 - **Jasypt** - Encrypting properties like datasource URL
-- **Amazon S3** - Remote file storage
+
 
 
 ## Dataflow
@@ -152,21 +155,20 @@ adding necessary steps to the Dockerfile.**
 
 ## Release 1.2
 
-#### http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565
+#### http://ec2-16-170-170-5.eu-north-1.compute.amazonaws.com:6565
 
 App is now deployed inside AWS EC2 virtual machine inside a docker container 
-[here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565) 
+[here.](http://ec2-16-170-170-5.eu-north-1.compute.amazonaws.com:6565) 
 
 However, it is protected by username and password.
 
 #### /rest/projects
-- JSON-formatted project information can be viewed [here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565/rest/projects)
+- JSON-formatted project information can be viewed [here.](http://ec2-16-170-170-5.eu-north-1.compute.amazonaws.com:6565/rest/projects)
 
 #### /rest/images/default.png
-- Default image for projects can be also viewed [here.](http://ec2-16-170-229-157.eu-north-1.compute.amazonaws.com:6565/rest/images/default.png)
+- Default image for projects can be also viewed [here.](http://ec2-16-170-170-5.eu-north-1.compute.amazonaws.com:6565/rest/images/default.png)
 
 ## Next steps
 
-- Figuring out how to make it run faster
 - Getting SSL certificate
 
